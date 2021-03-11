@@ -42,7 +42,11 @@ public class iBlock extends Piece {
 		
 	}
 	
+	public iBlock getType() {
+		return this;
+	}
 	
+	@Override
 	public Cell[] getPiece() {
 		return blocks;
 		

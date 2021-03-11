@@ -12,7 +12,18 @@ public class Cell {
 	private int column;
 	@Param(2)
 	private int value;
+	@Param(3)
+	private int id;
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Cell(int r,int c,int v){
 		this.row=r;
 		this.column=c;

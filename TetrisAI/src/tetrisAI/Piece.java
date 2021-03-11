@@ -14,6 +14,20 @@ public class Piece {
 	
 	protected static Image image;
 	
+	protected static int id;
+	
+	public static int getId() {
+		return id;
+	}
+
+
+	public static void setId(int id) {
+		Piece.id = id;
+	}
+
+
+	protected boolean isMoving;
+	
 	public Piece() {
 		blocks = new Cell[4];
 		for(int i=0; i<4; i++) {
@@ -21,6 +35,11 @@ public class Piece {
 		}
 	}
 	
+	
+	public Cell[] getPiece() {
+		return null;
+		
+	}
 
 	public static Image getImage() {
 		return image;
@@ -33,6 +52,18 @@ public class Piece {
 	public static void Accellerate() {
 		
 	}
+	
+
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+	}
+
 	
 	
 }
