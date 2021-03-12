@@ -56,11 +56,13 @@ public class Map extends JPanel {
 	
 	private Image zbl;
 	
+	private Piece currPiece;
+	
 
 	
 	public Map() {
 	
-		this.setFocusable(true);
+		
 		matrix = new Cell [20][10];
 		suppMatrix = new Cell [20][10];
 		
@@ -96,8 +98,7 @@ public class Map extends JPanel {
 			
 		}
 		
-	
-		
+		this.setFocusable(true);
 		this.repaint();
 		
 		
@@ -180,12 +181,6 @@ public class Map extends JPanel {
 		
 	}
 	
-	
-	public void setListener(PieceController pc) {
-		this.addKeyListener(pc);
-		
-	}
-	
 
 	public  Cell[][] getMatrix(){
 		return matrix;
@@ -198,6 +193,11 @@ public class Map extends JPanel {
 
 	public void update (){
 		repaint();
+	}
+	
+	public void addPiece(Piece piece) {
+		this.currPiece=piece;
+		this.addKeyListener(new PieceController(currPiece,this));
 	}
 	
 }

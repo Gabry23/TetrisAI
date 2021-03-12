@@ -5,16 +5,22 @@ import java.awt.event.KeyListener;
 
 public class PieceController implements KeyListener {
 
-	
+	private Map map;
 	private Piece piece;
 	
 	
-	public PieceController(Piece currPiece) {
+	public PieceController(Piece currPiece,Map map) {
 		piece = currPiece;
+		this.map = map;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 
 		case KeyEvent.VK_LEFT:
@@ -34,17 +40,11 @@ public class PieceController implements KeyListener {
 				piece.getPiece()[i].setRow(piece.getPiece()[i].getRow()+1);
 			}
 			break;		
-		
-		
+			
+			
 		
 		}
-			
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		map.update();
 	}
 
 	@Override

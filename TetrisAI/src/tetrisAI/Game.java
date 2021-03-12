@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 public class Game implements Runnable {
 
 	private static Map map;
+	private JFrame f;
 	private static int id = 0;
 	private static EmptyBlock eb;
 	private Piece piece;
@@ -23,7 +24,7 @@ public class Game implements Runnable {
 	
 	
 	public void startGame() {
-		JFrame f = new JFrame();
+		f = new JFrame();
 		f.setTitle("TETRIS AI...SPETTACOLO............");
 		f.setSize(520, 750);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +35,11 @@ public class Game implements Runnable {
 		
 		Thread t = new Thread(this);
 		t.start();
+		
+		
+		
+		
+		
 	}
 
 
@@ -46,8 +52,7 @@ public class Game implements Runnable {
 		
 		pieces.add(createPiece());
 		Piece currPiece = pieces.get(pieces.size()-1);
-		pc = new PieceController(currPiece);
-		map.setListener(pc);
+		map.addPiece(currPiece);
 		
 		while(true) {
 		
