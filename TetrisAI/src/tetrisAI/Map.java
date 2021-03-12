@@ -60,6 +60,7 @@ public class Map extends JPanel {
 	
 	public Map() {
 	
+		this.setFocusable(true);
 		matrix = new Cell [20][10];
 		suppMatrix = new Cell [20][10];
 		
@@ -180,6 +181,10 @@ public class Map extends JPanel {
 	}
 	
 	
+	public void setListener(PieceController pc) {
+		this.addKeyListener(pc);
+		
+	}
 	
 
 	public  Cell[][] getMatrix(){

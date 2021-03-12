@@ -13,6 +13,8 @@ public class Game implements Runnable {
 	private static EmptyBlock eb;
 	private Piece piece;
 	private Random random;
+	private PieceController pc;
+	
 	
 	public Game() {
 		startGame();
@@ -29,7 +31,7 @@ public class Game implements Runnable {
 		map = new Map();
 		f.add(map);
 		f.setVisible(true);
-
+		
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -44,7 +46,9 @@ public class Game implements Runnable {
 		
 		pieces.add(createPiece());
 		Piece currPiece = pieces.get(pieces.size()-1);
-	
+		pc = new PieceController(currPiece);
+		map.setListener(pc);
+		
 		while(true) {
 		
 		if(!currPiece.isMoving()) {
@@ -77,14 +81,14 @@ public class Game implements Runnable {
 						}
 									
 						else {
-							System.out.println("a");
+				
 							currPiece.setMoving(false);
 							for(int k=0; k<4; k++) {
 								currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);
 						
 								
 							}
-							printMatrix();
+						
 						}
 		
 					}
@@ -227,16 +231,7 @@ public class Game implements Runnable {
 		for(int i=0;i<4;i++)
 		map.getSuppMatrix()[piece.getPiece()[i].getRow()][piece.getPiece()[i].getColumn()] = piece.getPiece()[i];
 	}
-	
-	public void printMatrix() {
-		for(int i=0; i<map.matrix.length; i++) {
-			for(int j=0; j<map.matrix[i].length; j++) {
-				System.out.print(map.getMatrix()[i][j].getValue());
-			}	
-			System.out.println("");
-		}
-	}
-	
+
 	
 	
 	
