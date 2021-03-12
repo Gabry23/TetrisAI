@@ -41,7 +41,7 @@ public class Piece {
 		
 	}
 
-	public static Image getImage() {
+	public Image getImage() {
 		return image;
 	}
 	

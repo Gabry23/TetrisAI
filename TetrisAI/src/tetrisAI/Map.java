@@ -2,6 +2,7 @@ package tetrisAI;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 
@@ -15,31 +16,45 @@ public class Map extends JPanel {
 	static Cell[][] matrix;
 	
 	@Param(1)
-	private static iBlock ib;
+	private iBlock ib;
 	
 	@Param(2)
-	private static jBlock jb;
+	private jBlock jb;
 	
 	@Param(3)
-	private static lBlock lb;
+	private lBlock lb;
 	
 	@Param(4)
-	private static oBlock ob;
+	private oBlock ob;
 	
 	@Param(5)
-	private static sBlock sb;
+	private sBlock sb;
 	
 	@Param(6)
-	private static tBlock tb;
+	private tBlock tb;
 	
 	@Param(7)
-	private static zBlock zb;
+	private zBlock zb;
 	
 	@Param(8)
-	private static EmptyBlock eb;
+	private EmptyBlock eb;
 	
 	@Param(9)
 	static Cell[][] suppMatrix;
+	
+	private Image ibl;
+	
+	private Image jbl;
+	
+	private Image lbl;
+	
+	private Image obl;
+	
+	private Image sbl;
+	
+	private Image tbl;
+	
+	private Image zbl;
 	
 
 	
@@ -49,14 +64,33 @@ public class Map extends JPanel {
 		suppMatrix = new Cell [20][10];
 		
 		
+		ib = new iBlock();
+		ibl = ib.getImage();
+		
+		jb = new jBlock();
+		jbl = jb.getImage();
+		
+		lb = new lBlock();
+		lbl = lb.getImage();
+		
+		ob = new oBlock();
+		obl = ob.getImage();
+		
+		sb = new sBlock();
+		sbl = sb.getImage();
+		
+		tb = new tBlock();
+		tbl = tb.getImage();
+		
+		zb = new zBlock();
+		zbl = zb.getImage();
+		
 		for(int i=0; i<matrix.length; i++) {
 				
 			for(int j=0; j<matrix[i].length; j++) {
 				
 				matrix[i][j] = new EmptyBlock(i,j,0);
 				suppMatrix[i][j] = new EmptyBlock(i,j,0);
-				
-				
 			}
 			
 		}
@@ -71,10 +105,7 @@ public class Map extends JPanel {
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
-		
 	
-		
-		
 		for(int i=0; i<matrix.length; i++) {
 			
 			for(int j=0; j<matrix[i].length; j++) {
@@ -83,6 +114,7 @@ public class Map extends JPanel {
 				if(matrix[i][j].getValue() == 0) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
+                  
                     g.drawImage(eb.getImage(), x, y, 30, 30, null);
 				}
 				
@@ -90,43 +122,50 @@ public class Map extends JPanel {
 				else if(matrix[i][j].getValue() == 1 || matrix[i][j].getValue() == -1 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(ib.getImage(), x, y, 30, 30, null);	
+                   
+                    g.drawImage(ibl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 2 || matrix[i][j].getValue() == -2 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(jb.getImage(), x, y, 30, 30, null);	
+                    
+                    g.drawImage(jbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 3 || matrix[i][j].getValue() == -3 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(lb.getImage(), x, y, 30, 30, null);	
+                  
+                    g.drawImage(lbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 4 || matrix[i][j].getValue() == -4) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(ob.getImage(), x, y, 30, 30, null);	
+                    
+                    g.drawImage(obl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 5|| matrix[i][j].getValue() == -5) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(sb.getImage(), x, y, 30, 30, null);	
+                    
+                    g.drawImage(sbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 6 || matrix[i][j].getValue() == -6) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(tb.getImage(), x, y, 30, 30, null);	
+                    
+                    g.drawImage(tbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 7 || matrix[i][j].getValue() == -7) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
-                    g.drawImage(zb.getImage(), x, y, 30, 30, null);	
+                    
+                    g.drawImage(zbl, x, y, 30, 30, null);	
 				}
 			}
 			

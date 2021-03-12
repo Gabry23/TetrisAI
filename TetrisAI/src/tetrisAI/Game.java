@@ -11,6 +11,8 @@ public class Game implements Runnable {
 	private static Map map;
 	private static int id = 0;
 	private static EmptyBlock eb;
+	private Piece piece;
+	private Random random;
 	
 	public Game() {
 		startGame();
@@ -80,11 +82,9 @@ public class Game implements Runnable {
 							for(int k=0; k<4; k++) {
 								currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);
 						
-								System.out.println(currPiece.getPiece()[k].getRow());
-								System.out.println(currPiece.getPiece()[k].getColumn());
-								System.out.println(currPiece.getPiece()[k].getValue());
+								
 							}
-				
+							printMatrix();
 						}
 		
 					}
@@ -114,7 +114,7 @@ public class Game implements Runnable {
 		for(int i=0; i<map.matrix.length; i++) {
 			for(int j=0; j<map.matrix[i].length; j++) {
 			
-				if(map.getSuppMatrix()[i][j].getValue()>=0) {	
+				if(map.getSuppMatrix()[i][j].getValue()>0) {	
 					eb.setRow(i);
 					eb.setColumn(j);
 					map.getSuppMatrix()[i][j] =  eb;
@@ -158,12 +158,12 @@ public class Game implements Runnable {
 
 	public Piece createPiece() {
 		
-		Random random = new Random();
+		random = new Random();
 		int min = 1; // numero minimo
 		int max = 7; // numero massimo
 		int c = ((max-min) + 1);
 		int rand = random.nextInt(c) + min;
-		Piece piece = null;
+		piece = null;
 		
 		switch(rand) {
 		case 1:
