@@ -87,54 +87,47 @@ public class Map extends JPanel {
 				}
 				
 				
-				if(matrix[i][j].getValue() == 1 || matrix[i][j].getValue() == -1 ) {
+				else if(matrix[i][j].getValue() == 1 || matrix[i][j].getValue() == -1 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(ib.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 2 || matrix[i][j].getValue() == -2 ) {
+				else if(matrix[i][j].getValue() == 2 || matrix[i][j].getValue() == -2 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(jb.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 3 || matrix[i][j].getValue() == -3 ) {
+				else if(matrix[i][j].getValue() == 3 || matrix[i][j].getValue() == -3 ) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(lb.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 4 || matrix[i][j].getValue() == -4) {
+				else if(matrix[i][j].getValue() == 4 || matrix[i][j].getValue() == -4) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(ob.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 5|| matrix[i][j].getValue() == -5) {
+				else if(matrix[i][j].getValue() == 5|| matrix[i][j].getValue() == -5) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(sb.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 6 || matrix[i][j].getValue() == -6) {
+				else if(matrix[i][j].getValue() == 6 || matrix[i][j].getValue() == -6) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(tb.getImage(), x, y, 30, 30, null);	
 				}
 				
-				if(matrix[i][j].getValue() == 7 || matrix[i][j].getValue() == -7) {
+				else if(matrix[i][j].getValue() == 7 || matrix[i][j].getValue() == -7) {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                     g.drawImage(zb.getImage(), x, y, 30, 30, null);	
 				}
-				
-				
-				
-				
-				
-				
-				
 			}
 			
 		}

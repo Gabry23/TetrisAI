@@ -69,6 +69,7 @@ public class Game implements Runnable {
 									map.getSuppMatrix()[currPiece.getPiece()[k].getRow()][currPiece.getPiece()[k].getColumn()] = currPiece.getPiece()[k]; 
 								}
 							updatable=false;
+						
 							}
 								
 						}
@@ -83,9 +84,6 @@ public class Game implements Runnable {
 								System.out.println(currPiece.getPiece()[k].getColumn());
 								System.out.println(currPiece.getPiece()[k].getValue());
 							}
-
-						//System.out.println(currPiece.getPiece()[0].getRow());
-					
 				
 						}
 		
@@ -105,13 +103,9 @@ public class Game implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 
-
-	
-
+		}
 }
-	}
 	
 	
 	
@@ -125,32 +119,17 @@ public class Game implements Runnable {
 					eb.setColumn(j);
 					map.getSuppMatrix()[i][j] =  eb;
 				}
-				
-				
-			}
-				
+			}		
 		}
 	}
 
 
 	private void Copy(Cell[][] matrix, Cell[][] suppMatrix) {
-		
 		for(int i=0; i<matrix.length; i++) {
 			for(int j=0; j<matrix[i].length; j++) {
-				
 				matrix[i][j] = suppMatrix[i][j];
-		
-				
-				
-				
 			}
-				
 		}
-		
-
-		
-	
-		
 	}
 
 
@@ -186,88 +165,59 @@ public class Game implements Runnable {
 		int rand = random.nextInt(c) + min;
 		Piece piece = null;
 		
-		
-		if(rand==1) {
+		switch(rand) {
+		case 1:
 			piece = new iBlock();
 			addPiece(piece);
 			((iBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-			
-		}
-		
-		if(rand==2) {
+			break;
+		case 2:
 			piece = new jBlock();
 			addPiece(piece);
 			((jBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-		}
-		
-		if(rand==3) {
+			break;
+		case 3:
 			piece = new lBlock();
 			addPiece(piece);
 			((lBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-		}
-		
-		
-		if(rand==4) {
+			break;
+		case 4:
 			piece = new oBlock();
 			addPiece(piece);
 			((oBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-		}
-		
-		
-		if(rand==5) {
+			break;
+		case 5:
 			piece = new sBlock();
 			addPiece(piece);
 			((sBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-		}
-		
-		
-		if(rand==6) {
+			break;
+		case 6:
 			piece = new tBlock();
 			addPiece(piece);
 			((tBlock) piece).setMoving(true);
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
-		}
-		
-		if(rand==7) {
+			break;
+		case 7:
 			piece = new zBlock();
 			addPiece(piece);
 			((zBlock) piece).setMoving(true);
+
+			break;
 			
-			piece.setId(id);
-			
-			for(int k=0;k<4;k++)
-			piece.getPiece()[k].setId(id);
 		}
+		
+		piece.setId(id);
+		
+		for(int k=0;k<4;k++)
+			piece.getPiece()[k].setId(id);
+		
 		id++;
+		
 		return piece;
 		
 		
@@ -275,7 +225,16 @@ public class Game implements Runnable {
 	
 	public void addPiece(Piece piece) {
 		for(int i=0;i<4;i++)
-		map.matrix[piece.getPiece()[i].getRow()][piece.getPiece()[i].getColumn()] = piece.getPiece()[i];
+		map.getSuppMatrix()[piece.getPiece()[i].getRow()][piece.getPiece()[i].getColumn()] = piece.getPiece()[i];
+	}
+	
+	public void printMatrix() {
+		for(int i=0; i<map.matrix.length; i++) {
+			for(int j=0; j<map.matrix[i].length; j++) {
+				System.out.print(map.getMatrix()[i][j].getValue());
+			}	
+			System.out.println("");
+		}
 	}
 	
 	
