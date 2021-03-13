@@ -41,6 +41,11 @@ public class PieceController implements KeyListener {
 			}
 			break;		
 			
+		case KeyEvent.VK_UP:
+		
+				piece.Rotate();
+			
+			break;			
 			
 		
 		}

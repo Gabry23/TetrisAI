@@ -29,7 +29,7 @@ public class sBlock extends Piece {
 		blocks[3].setRow(1);
 		blocks[3].setColumn(5);
 		blocks[3].setValue(5);
-		
+		this.setState(true, 0);
 		try {
 			image = ImageIO.read(this.getClass().getResource("/resources/green.png"));
 			Image icon = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -47,7 +47,39 @@ public class sBlock extends Piece {
 		
 	}
 	
-	public static void Rotate() {
+	public void Rotate() {
+	if(state[0] == true) {
+			
+			blocks[1].setRow(blocks[1].getRow()-1);
+			blocks[1].setColumn(blocks[1].getColumn()-1);
+			
+			blocks[2].setRow(blocks[2].getRow()-1);
+			blocks[2].setColumn(blocks[2].getColumn()+1);
+			
+			blocks[3].setRow(blocks[3].getRow());
+			blocks[3].setColumn(blocks[3].getColumn()+2);
+			
+			state[0] = false;
+			state[1] = true;
+			
+			}
+			
+			
+			else if(state[1] == true) {
+				blocks[1].setRow(blocks[1].getRow()+1);
+				blocks[1].setColumn(blocks[1].getColumn()+1);
+				
+				blocks[2].setRow(blocks[2].getRow()+1);
+				blocks[2].setColumn(blocks[2].getColumn()-1);
+				
+				blocks[3].setRow(blocks[3].getRow());
+				blocks[3].setColumn(blocks[3].getColumn()-2);
+				
+				state[0] = true;
+				state[1] = false;
+				
+				}
 		
+	
 	}
 }

@@ -29,6 +29,7 @@ public class oBlock extends Piece {
 		blocks[3].setRow(1);
 		blocks[3].setColumn(5);
 		blocks[3].setValue(4);
+		this.setState(true, 0);
 		
 		try {
 			image = ImageIO.read(this.getClass().getResource("/resources/yellow.png"));
@@ -46,7 +47,7 @@ public class oBlock extends Piece {
 		
 	}
 	
-	public static void Rotate() {
+	public void Rotate() {
 		
 	}
 }

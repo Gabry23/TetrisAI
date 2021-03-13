@@ -29,6 +29,8 @@ public class iBlock extends Piece {
 		blocks[3].setRow(0);
 		blocks[3].setColumn(7);
 		blocks[3].setValue(1);
+		this.setState(true, 0);
+		
 		
 		try {
 			image = ImageIO.read(this.getClass().getResource("/resources/cyan.png"));
@@ -46,13 +48,44 @@ public class iBlock extends Piece {
 		return this;
 	}
 	
-	@Override
 	public Cell[] getPiece() {
 		return blocks;
 		
 	}
 	
-	public static void Rotate() {
+	public void Rotate() {
+		
+		if(state[0] == true) {
+		
+		blocks[0].setRow(blocks[0].getRow()+2);
+		blocks[0].setColumn(blocks[0].getColumn()+2);
+		
+		blocks[1].setRow(blocks[1].getRow()+1);
+		blocks[1].setColumn(blocks[1].getColumn()+1);
+		
+		blocks[3].setRow(blocks[3].getRow()-1);
+		blocks[3].setColumn(blocks[3].getColumn()-1);
+		
+		state[0] = false;
+		state[1] = true;
+		
+		}
+		
+		
+		else if(state[1] == true) {
+			blocks[0].setRow(blocks[0].getRow()-2);
+			blocks[0].setColumn(blocks[0].getColumn()-2);
+			
+			blocks[1].setRow(blocks[1].getRow()-1);
+			blocks[1].setColumn(blocks[1].getColumn()-1);
+			
+			blocks[3].setRow(blocks[3].getRow()+1);
+			blocks[3].setColumn(blocks[3].getColumn()+1);
+			
+			state[0] = true;
+			state[1] = false;
+			
+			}
 		
 	}
 }

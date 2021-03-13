@@ -29,6 +29,7 @@ public class zBlock extends Piece {
 		blocks[3].setRow(1);
 		blocks[3].setColumn(6);
 		blocks[3].setValue(7);
+		this.setState(true, 0);
 		
 		try {
 			image = ImageIO.read(this.getClass().getResource("/resources/redsquare.png"));
@@ -47,7 +48,41 @@ public class zBlock extends Piece {
 		
 	}
 	
-	public static void Rotate() {
+	public void Rotate() {
+		
+	if(state[0] == true) {
+			
+			blocks[0].setRow(blocks[0].getRow()+1);
+			blocks[0].setColumn(blocks[0].getColumn()+1);
+			
+			blocks[1].setRow(blocks[1].getRow()-1);
+			blocks[1].setColumn(blocks[1].getColumn()+1);
+			
+			blocks[3].setRow(blocks[3].getRow()-2);
+			blocks[3].setColumn(blocks[3].getColumn());
+			
+			state[0] = false;
+			state[1] = true;
+			
+			}
+			
+			
+			else if(state[1] == true) {
+				blocks[0].setRow(blocks[0].getRow()-1);
+				blocks[0].setColumn(blocks[0].getColumn()-1);
+				
+				blocks[1].setRow(blocks[1].getRow()+1);
+				blocks[1].setColumn(blocks[1].getColumn()-1);
+				
+				blocks[3].setRow(blocks[3].getRow()+2);
+				blocks[3].setColumn(blocks[3].getColumn());
+				
+				state[0] = true;
+				state[1] = false;
+				
+				}
+		
+		
 		
 	}
 }
