@@ -53,12 +53,14 @@ public class Game implements Runnable {
 		pieces.add(createPiece());
 		Piece currPiece = pieces.get(pieces.size()-1);
 		map.addPiece(currPiece);
+		map.getController().updatePiece(currPiece);
 		
 		while(true) {
 		
 		if(!currPiece.isMoving()) {
 			pieces.add(createPiece());
 			currPiece = pieces.get(pieces.size()-1);
+			map.getController().updatePiece(currPiece);
 		}
 			
 		updatable=true;

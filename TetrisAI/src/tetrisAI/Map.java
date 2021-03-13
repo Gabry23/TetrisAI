@@ -58,6 +58,8 @@ public class Map extends JPanel {
 	
 	private Piece currPiece;
 	
+	private PieceController pc;
+	
 
 	
 	public Map() {
@@ -87,6 +89,8 @@ public class Map extends JPanel {
 		
 		zb = new zBlock();
 		zbl = zb.getImage();
+		
+		pc = new PieceController(this);
 		
 		for(int i=0; i<matrix.length; i++) {
 				
@@ -197,7 +201,11 @@ public class Map extends JPanel {
 	
 	public void addPiece(Piece piece) {
 		this.currPiece=piece;
-		this.addKeyListener(new PieceController(currPiece,this));
+		this.addKeyListener(pc);
+	}
+	
+	public PieceController getController() {
+		return pc;
 	}
 	
 }

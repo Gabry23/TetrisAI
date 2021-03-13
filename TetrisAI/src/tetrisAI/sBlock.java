@@ -53,11 +53,11 @@ public class sBlock extends Piece {
 			blocks[1].setRow(blocks[1].getRow()-1);
 			blocks[1].setColumn(blocks[1].getColumn()-1);
 			
-			blocks[2].setRow(blocks[2].getRow()-1);
-			blocks[2].setColumn(blocks[2].getColumn()+1);
+			blocks[2].setRow(blocks[2].getRow());
+			blocks[2].setColumn(blocks[2].getColumn()+2);
 			
-			blocks[3].setRow(blocks[3].getRow());
-			blocks[3].setColumn(blocks[3].getColumn()+2);
+			blocks[3].setRow(blocks[3].getRow()-1);
+			blocks[3].setColumn(blocks[3].getColumn()+1);
 			
 			state[0] = false;
 			state[1] = true;
@@ -69,11 +69,11 @@ public class sBlock extends Piece {
 				blocks[1].setRow(blocks[1].getRow()+1);
 				blocks[1].setColumn(blocks[1].getColumn()+1);
 				
-				blocks[2].setRow(blocks[2].getRow()+1);
-				blocks[2].setColumn(blocks[2].getColumn()-1);
+				blocks[2].setRow(blocks[2].getRow());
+				blocks[2].setColumn(blocks[2].getColumn()-2);
 				
-				blocks[3].setRow(blocks[3].getRow());
-				blocks[3].setColumn(blocks[3].getColumn()-2);
+				blocks[3].setRow(blocks[3].getRow()+1);
+				blocks[3].setColumn(blocks[3].getColumn()-1);
 				
 				state[0] = true;
 				state[1] = false;

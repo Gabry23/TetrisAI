@@ -9,9 +9,12 @@ public class PieceController implements KeyListener {
 	private Piece piece;
 	
 	
-	public PieceController(Piece currPiece,Map map) {
-		piece = currPiece;
+	public PieceController(Map map) {
 		this.map = map;
+	}
+	
+	public void updatePiece(Piece currPiece) {
+		piece = currPiece;
 	}
 
 	@Override
