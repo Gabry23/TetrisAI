@@ -83,6 +83,10 @@ public class Game implements Runnable {
 							}
 								
 						}
+						else if(!checkScrollCondition(map, currPiece) && currPiece.getPiece()[0].getRow()<1){	
+							t.interrupt();
+							return;
+						}
 									
 						else {
 				
