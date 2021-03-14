@@ -45,10 +45,14 @@ public class PieceController implements KeyListener {
 			break;	
 			
 		case KeyEvent.VK_DOWN:
+			
+			 
 			for(int i=0; i<4; i++)
 			{
 				piece.getPiece()[i].setRow(piece.getPiece()[i].getRow()+1);
 			}
+			
+			
 			break;		
 			
 		case KeyEvent.VK_UP:

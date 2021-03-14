@@ -140,7 +140,7 @@ public class Game implements Runnable {
 
 
 	private void lowMatrix(int index) {
-		for(int i=0; i<index; i++) {
+		for(int i=index-1 ; i>=0; i--) {
 			for(int j=0; j<map.matrix[i].length; j++) {	
 				if(map.getMatrix()[i][j].getValue() != 0) {
 					int value = map.getMatrix()[i][j].getValue();
