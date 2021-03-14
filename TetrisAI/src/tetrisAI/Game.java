@@ -15,6 +15,7 @@ public class Game implements Runnable {
 	private Piece piece;
 	private Random random;
 	private PieceController pc;
+	private Thread t;
 	
 	
 	public Game() {
@@ -33,7 +34,7 @@ public class Game implements Runnable {
 		f.add(map);
 		f.setVisible(true);
 		
-		Thread t = new Thread(this);
+		t = new Thread(this);
 		t.start();
 		
 		
@@ -47,7 +48,6 @@ public class Game implements Runnable {
 	public void run() {
 		
 		List<Piece> pieces = new ArrayList<Piece>();
-		
 		boolean updatable;
 		
 		pieces.add(createPiece());
@@ -74,7 +74,7 @@ public class Game implements Runnable {
 					if(map.getMatrix()[i][j].getValue()>0) {
 					
 
-						if( checkScrollCondition(map, currPiece)) {
+						if(checkScrollCondition(map, currPiece)) {
 												
 							if(updatable) {	
 								for(int k=0; k<4; k++) {
@@ -85,6 +85,11 @@ public class Game implements Runnable {
 						
 							}
 								
+						}
+						
+						else if(!checkScrollCondition(map, currPiece) && currPiece.getPiece()[0].getRow()<1){	
+							t.interrupt();
+							return;
 						}
 									
 						else {
