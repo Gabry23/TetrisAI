@@ -47,7 +47,8 @@ public class tBlock extends Piece {
 		
 	}
 	
-	public void Rotate() {
+	public void Rotate(Map map) {
+		
 		
 	if(state[0] == true) {
 			
@@ -111,5 +112,6 @@ public class tBlock extends Piece {
 				state[3] = false;
 				
 				}
+	
 	}
 }

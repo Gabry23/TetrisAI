@@ -42,7 +42,7 @@ public class Piece {
 		return image;
 	}
 	
-	public void Rotate() {
+	public void Rotate(Map map) {
 	
 	}
 	
@@ -77,7 +77,49 @@ public class Piece {
 	public void setMoving(boolean isMoving) {
 		this.isMoving = isMoving;
 	}
+	
+	public boolean canMoveLeft(Map map) {
+		int minColumn = 21;
+		int Row = 0;
+		for(int i=0; i<4; i++) {
+			if(blocks[i].getColumn() < minColumn) {
+				 minColumn = blocks[i].getColumn();
+				 Row = blocks[i].getRow();
+			}
+		}
+		
+		if(minColumn == 0) {
+			return false;
+		}
+		
+		else if(map.getMatrix()[Row][minColumn-1].getValue() == 0) {
+			return true;
+		}
+		
+		return false;
+	}
 
+
+	public boolean canMoveRight(Map map) {
+		int maxColumn = 0;
+		int Row = 0;
+		for(int i=0; i<4; i++) {
+			if(blocks[i].getColumn() > maxColumn) {
+				 maxColumn = blocks[i].getColumn();
+				 Row = blocks[i].getRow();
+			}
+		}
+		
+		if(maxColumn == 9) {
+			return false;
+		}
+		
+		else if(map.getMatrix()[Row][maxColumn+1].getValue() == 0) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 }

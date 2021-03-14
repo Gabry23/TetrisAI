@@ -15,7 +15,7 @@ public class Game implements Runnable {
 	private Piece piece;
 	private Random random;
 	private PieceController pc;
-	
+	private Thread t;
 	
 	public Game() {
 		startGame();
@@ -30,15 +30,12 @@ public class Game implements Runnable {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		eb = new EmptyBlock(0,0,0);
 		map = new Map();
+		
 		f.add(map);
 		f.setVisible(true);
 		
-		Thread t = new Thread(this);
-		t.start();
-		
-		
-		
-		
+		t = new Thread(this);
+		t.start();		
 		
 	}
 
@@ -123,7 +120,7 @@ public class Game implements Runnable {
 	private void checkDeleteCondition() {
 		boolean full;
 		int rows = 0;
-		for(int i=0; i<map.matrix.length; i++) {
+		for(int i=map.matrix.length-1; i>=0; i--) {
 			 full = true;
 			for(int j=0; j<map.matrix[i].length; j++) {
 			
@@ -206,8 +203,8 @@ public class Game implements Runnable {
 	public Piece createPiece() {
 		
 		random = new Random();
-		int min = 1; // numero minimo
-		int max = 6; // numero massimo
+		int min = 7; // numero minimo
+		int max = 7; // numero massimo
 		int c = ((max-min) + 1);
 		int rand = random.nextInt(c) + min;
 		piece = null;

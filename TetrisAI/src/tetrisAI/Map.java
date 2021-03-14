@@ -60,8 +60,6 @@ public class Map extends JPanel {
 	
 	private PieceController pc;
 	
-
-	
 	public Map() {
 	
 		
