@@ -106,7 +106,7 @@ public class Game implements Runnable {
 			}
 			Copy(map.getMatrix(), map.getSuppMatrix());		
 			clearSuppMatrix();
-			
+			checkDeleteCondition();
 			map.update();
 			try {
 				Thread.sleep(200);
@@ -120,6 +120,42 @@ public class Game implements Runnable {
 	
 	
 	
+	private void checkDeleteCondition() {
+		boolean full;
+		int rows = 0;
+		for(int i=0; i<map.matrix.length; i++) {
+			 full = true;
+			for(int j=0; j<map.matrix[i].length; j++) {
+			
+				if(map.getMatrix()[i][j].getValue() == 0) {	
+					full = false;
+				}
+			}
+			if(full) {
+				for(int k=0; k<map.matrix[i].length; k++) {
+					map.getMatrix()[i][k].setValue(0);		
+				}
+				lowMatrix(i);	
+			}
+		}
+		
+	}
+
+
+	private void lowMatrix(int index) {
+		for(int i=0; i<index; i++) {
+			for(int j=0; j<map.matrix[i].length; j++) {	
+				if(map.getMatrix()[i][j].getValue() != 0) {
+					int value = map.getMatrix()[i][j].getValue();
+					map.getMatrix()[i][j].setValue(0); 
+					map.getMatrix()[i][j].setRow(map.getMatrix()[i][j].getRow()+1);
+					map.getMatrix()[i+1][j].setValue(value);
+				}
+			}	
+			}
+	}
+
+
 	private void clearSuppMatrix() {
 
 		for(int i=0; i<map.matrix.length; i++) {
