@@ -41,6 +41,7 @@ public class Game implements Runnable{
 	}	
 	
 	public void checkDeleteCondition() {
+		if(!gl.getCurrPiece().isMoving()) {
 		boolean full;
 		int rows = 0;
 		for(int i=map.matrix.length-1; i>=0; i--) {
@@ -57,6 +58,7 @@ public class Game implements Runnable{
 				}
 				lowMatrix(i);	
 			}
+		}
 		}
 		
 	}
