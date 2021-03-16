@@ -82,7 +82,7 @@ public class Piece {
 		int minColumn = 21;
 		int Row = 0;
 		for(int i=0; i<4; i++) {
-			if(blocks[i].getColumn() < minColumn) {
+			if(blocks[i].getColumn() <= minColumn) {
 				 minColumn = blocks[i].getColumn();
 				 Row = blocks[i].getRow();
 			}
@@ -93,6 +93,7 @@ public class Piece {
 		}
 		
 		else if(map.getMatrix()[Row][minColumn-1].getValue() == 0) {
+			System.out.println("Libero");
 			return true;
 		}
 		
@@ -104,7 +105,7 @@ public class Piece {
 		int maxColumn = 0;
 		int Row = 0;
 		for(int i=0; i<4; i++) {
-			if(blocks[i].getColumn() > maxColumn) {
+			if(blocks[i].getColumn() >= maxColumn) {
 				 maxColumn = blocks[i].getColumn();
 				 Row = blocks[i].getRow();
 			}
@@ -115,6 +116,7 @@ public class Piece {
 		}
 		
 		else if(map.getMatrix()[Row][maxColumn+1].getValue() == 0) {
+			System.out.println("Libero");
 			return true;
 		}
 		

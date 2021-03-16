@@ -60,7 +60,7 @@ public class Map extends JPanel {
 	
 	private PieceController pc;
 	
-	public Map() {
+	public Map(Game game) {
 	
 		
 		matrix = new Cell [20][10];
@@ -88,7 +88,7 @@ public class Map extends JPanel {
 		zb = new zBlock();
 		zbl = zb.getImage();
 		
-		pc = new PieceController(this);
+		pc = new PieceController(this,game);
 		
 		for(int i=0; i<matrix.length; i++) {
 				

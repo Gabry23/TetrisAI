@@ -6,7 +6,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-public class Game implements Runnable {
+public class Game implements Runnable{
 
 	private static Map map;
 	private JFrame f;
@@ -15,6 +15,7 @@ public class Game implements Runnable {
 	private Piece piece;
 	private Random random;
 	private PieceController pc;
+	private Gameloop gl;
 	private Thread t;
 	
 	public Game() {
@@ -29,99 +30,17 @@ public class Game implements Runnable {
 		f.setSize(520, 750);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		eb = new EmptyBlock(0,0,0);
-		map = new Map();
-		
+		map = new Map(this);
+		gl = new Gameloop(this,map);
 		f.add(map);
-		f.setVisible(true);
+		f.setVisible(true);		
 		
-		t = new Thread(this);
-		t.start();		
+		t=new Thread(this);
+		t.start();
 		
-	}
-
-
-	@Override
-	public void run() {
-		
-		List<Piece> pieces = new ArrayList<Piece>();
-		
-		boolean updatable;
-		
-		pieces.add(createPiece());
-		Piece currPiece = pieces.get(pieces.size()-1);
-		map.addPiece(currPiece);
-		map.getController().updatePiece(currPiece);
-		
-		while(true) {
-		
-		if(!currPiece.isMoving()) {
-			pieces.add(createPiece());
-			currPiece = pieces.get(pieces.size()-1);
-			map.getController().updatePiece(currPiece);
-		}
-			
-		updatable=true;
-			
-		
-			for(int i=0; i<map.getMatrix().length; i++) {
-		
-				
-				for(int j=0; j<map.getMatrix()[i].length; j++) {
-					
-					if(map.getMatrix()[i][j].getValue()>0) {
-					
-
-						if( checkScrollCondition(map, currPiece)) {
-												
-							if(updatable) {	
-								for(int k=0; k<4; k++) {
-									currPiece.getPiece()[k].setRow(currPiece.getPiece()[k].getRow()+1);
-									map.getSuppMatrix()[currPiece.getPiece()[k].getRow()][currPiece.getPiece()[k].getColumn()] = currPiece.getPiece()[k]; 
-								}
-							updatable=false;
-						
-							}
-								
-						}
-						else if(!checkScrollCondition(map, currPiece) && currPiece.getPiece()[0].getRow()<1){	
-							t.interrupt();
-							return;
-						}
-									
-						else {
-				
-							currPiece.setMoving(false);
-							for(int k=0; k<4; k++) {
-								currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);
-						
-								
-							}
-						
-						}
-		
-					}
-				
-				}
-				
-			
-			}
-			Copy(map.getMatrix(), map.getSuppMatrix());		
-			clearSuppMatrix();
-			checkDeleteCondition();
-			map.update();
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-}
+	}	
 	
-	
-	
-	private void checkDeleteCondition() {
+	public void checkDeleteCondition() {
 		boolean full;
 		int rows = 0;
 		for(int i=map.matrix.length-1; i>=0; i--) {
@@ -157,7 +76,7 @@ public class Game implements Runnable {
 	}
 
 
-	private void clearSuppMatrix() {
+	public void clearSuppMatrix() {
 
 		for(int i=0; i<map.matrix.length; i++) {
 			for(int j=0; j<map.matrix[i].length; j++) {
@@ -172,7 +91,7 @@ public class Game implements Runnable {
 	}
 
 
-	private void Copy(Cell[][] matrix, Cell[][] suppMatrix) {
+	public void Copy(Cell[][] matrix, Cell[][] suppMatrix) {
 		for(int i=0; i<matrix.length; i++) {
 			for(int j=0; j<matrix[i].length; j++) {
 				matrix[i][j] = suppMatrix[i][j];
@@ -181,7 +100,7 @@ public class Game implements Runnable {
 	}
 
 
-	private boolean checkScrollCondition(Map map, Piece currPiece) {
+	public boolean checkScrollCondition(Map map, Piece currPiece) {
 
 		for(int i=0; i<4; i++) {
 			
@@ -276,7 +195,42 @@ public class Game implements Runnable {
 		map.getSuppMatrix()[piece.getPiece()[i].getRow()][piece.getPiece()[i].getColumn()] = piece.getPiece()[i];
 	}
 
+	public boolean SuppMatrixIsEmpty(){
+		for(int i=0; i<map.matrix.length; i++) {
+			for(int j=0; j<map.matrix[i].length; j++) {
+				if(map.getSuppMatrix()[i][j].getValue()!=0)
+					return false;
+			}
+		}
+	 return true;
+	}
+
+
+	@Override
+	public void run() {
+		while(true) {
+			if(gl.getCurrPiece()!=null) {
+				Copy(map.getMatrix(),map.getSuppMatrix());
+				clearSuppMatrix();
+				addPiece(gl.getCurrPiece());
+			}
+			map.update();
+			sleepTime(10);
+		}
+	}
 	
-	
+	public void sleepTime(int i){
+		try {
+			Thread.sleep(i);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public Gameloop getLoop() {
+		return gl;
+	}
 	
 }

@@ -32,7 +32,7 @@ public class MainClass {
 		
 		
 		/*
-		//Creazione dell'oggetto handler che si occuperà di gestire l'invocazione 
+		//Creazione dell'oggetto handler che si occuperï¿½ di gestire l'invocazione 
 		//del sistema ASP da utilizzare
 		
 		//Se si esegue la demo su Windows 64bit scommentare la seguente istruzione:
@@ -82,13 +82,13 @@ public class MainClass {
 		//L'handler invoca DLV2 in modo SINCRONO dando come input il programma logico e i fatti
 		Output o =  handler.startSync();
 		
-		//Analizziamo l'answer set che in quest caso è unico e che rappresenta la soluzione
+		//Analizziamo l'answer set che in quest caso ï¿½ unico e che rappresenta la soluzione
 		//del Sudoku e aggiorniamo la matrice
 		AnswerSets answersets = (AnswerSets) o;
 		for(AnswerSet a:answersets.getAnswersets()){
 			try {
 				for(Object obj:a.getAtoms()){
-					//Scartiamo tutto ciò che non è un oggetto della classe Cell
+					//Scartiamo tutto ciï¿½ che non ï¿½ un oggetto della classe Cell
 					if(!(obj instanceof Cell)) continue;
 					//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
 					//nella matrice rappresentante la griglia del Sudoku
@@ -100,10 +100,10 @@ public class MainClass {
 			} 
 			
 		}
-		//Visualizziamo la griglia così ottenuta
+		//Visualizziamo la griglia cosï¿½ ottenuta
 		*/
 		
-		//In alternativa l'handler può invocare DLV2 in modo ASINCRONO.
+		//In alternativa l'handler puï¿½ invocare DLV2 in modo ASINCRONO.
 		//Scommentare la seguente linea e commentare le linee 89-110
 		//handler.startAsync(new MyCallback(sudokuMatrix));
 	}

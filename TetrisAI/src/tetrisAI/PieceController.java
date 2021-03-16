@@ -7,10 +7,11 @@ public class PieceController implements KeyListener {
 
 	private Map map;
 	private Piece piece;
-
+	private Game game;
 	
-	public PieceController(Map map) {
+	public PieceController(Map map,Game game) {
 		this.map = map;
+		this.game = game;
 	}
 	
 	public void updatePiece(Piece currPiece) {
@@ -24,35 +25,30 @@ public class PieceController implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
+		if(piece.isMoving()) {
 		switch(e.getKeyCode()) {
-
+		
 		case KeyEvent.VK_LEFT:
-			
 			if(piece.canMoveLeft(map)) {
 			for(int i=0; i<4; i++) {
 				piece.getPiece()[i].setColumn(piece.getPiece()[i].getColumn()-1);
 			}
 			}
+			
 			break;
 			
 		case KeyEvent.VK_RIGHT:
-			
 			if(piece.canMoveRight(map)) {
 			for(int i=0; i<4; i++) {
 				piece.getPiece()[i].setColumn(piece.getPiece()[i].getColumn()+1);
 			}
 			}
+			
 			break;	
 			
 		case KeyEvent.VK_DOWN:
-			
-			 
-			for(int i=0; i<4; i++)
-			{
-				piece.getPiece()[i].setRow(piece.getPiece()[i].getRow()+1);
-			}
-			
-			
+			game.getLoop().setSleepTime(100);
 			break;		
 			
 		case KeyEvent.VK_UP:
@@ -63,12 +59,15 @@ public class PieceController implements KeyListener {
 			
 		
 		}
-		map.update();
+		}
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_DOWN:
+			game.getLoop().setSleepTime(600);
+			break;	
+		}
 	}
 }
