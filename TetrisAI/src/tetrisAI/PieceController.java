@@ -1,6 +1,7 @@
 package tetrisAI;
 
 import java.awt.event.KeyEvent;
+
 import java.awt.event.KeyListener;
 
 public class PieceController implements KeyListener {
@@ -52,12 +53,11 @@ public class PieceController implements KeyListener {
 			break;		
 			
 		case KeyEvent.VK_UP:
-		
-				piece.Rotate(map);
+		if((!piece.canMoveLeft(map) && !piece.canMoveRight(map))||(piece.getPiece()[0].getRow()<1))
+			break;
+			piece.Rotate(map);
 			
 			break;			
-			
-		
 		}
 		}
 	}

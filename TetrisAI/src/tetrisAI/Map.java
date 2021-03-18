@@ -119,7 +119,8 @@ public class Map extends JPanel {
 				    int x = 20 + j * 30;
                     int y = 20 + i * 30;
                   
-                    g.drawImage(eb.getImage(), x, y, 30, 30, null);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(x,y,30,30);
 				}
 				
 				

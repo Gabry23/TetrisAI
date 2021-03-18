@@ -79,48 +79,30 @@ public class Piece {
 	}
 	
 	public boolean canMoveLeft(Map map) {
-		int minColumn = 21;
-		int Row = 0;
+		
+		Cell adj;
 		for(int i=0; i<4; i++) {
-			if(blocks[i].getColumn() <= minColumn) {
-				 minColumn = blocks[i].getColumn();
-				 Row = blocks[i].getRow();
-			}
+			if(blocks[i].getColumn()==0)
+				return false;
+			adj=map.getMatrix()[blocks[i].getRow()][blocks[i].getColumn()-1];
+			if(adj.getValue()!=0 && adj.getId()!=this.id) 
+				 return false;
 		}
-		
-		if(minColumn == 0) {
-			return false;
-		}
-		
-		else if(map.getMatrix()[Row][minColumn-1].getValue() == 0) {
-			System.out.println("Libero");
-			return true;
-		}
-		
-		return false;
+		return true;
 	}
 
 
 	public boolean canMoveRight(Map map) {
-		int maxColumn = 0;
-		int Row = 0;
+		
+		Cell adj;
 		for(int i=0; i<4; i++) {
-			if(blocks[i].getColumn() >= maxColumn) {
-				 maxColumn = blocks[i].getColumn();
-				 Row = blocks[i].getRow();
-			}
+			if(blocks[i].getColumn()==9)
+				return false;
+			adj=map.getMatrix()[blocks[i].getRow()][blocks[i].getColumn()+1];
+			if(adj.getValue()!=0 && adj.getId()!=this.id) 
+				 return false;
 		}
-		
-		if(maxColumn == 9) {
-			return false;
-		}
-		
-		else if(map.getMatrix()[Row][maxColumn+1].getValue() == 0) {
-			System.out.println("Libero");
-			return true;
-		}
-		
-		return false;
+		return true;
 	}
 	
 	
