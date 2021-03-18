@@ -48,7 +48,24 @@ public class tBlock extends Piece {
 	}
 	
 	public void Rotate(Map map) {
-		
+	boolean restoreLeft = false;
+	boolean restoreRight = false;
+	
+	if(!this.canMoveLeft(map)) {
+		blocks[0].setColumn(blocks[0].getColumn()+1);
+		blocks[1].setColumn(blocks[1].getColumn()+1);
+		blocks[2].setColumn(blocks[2].getColumn()+1);
+		blocks[3].setColumn(blocks[3].getColumn()+1);
+		restoreLeft = true;
+	}
+	
+	else if(!this.canMoveRight(map)) {
+		blocks[0].setColumn(blocks[0].getColumn()-1);
+		blocks[1].setColumn(blocks[1].getColumn()-1);
+		blocks[2].setColumn(blocks[2].getColumn()-1);
+		blocks[3].setColumn(blocks[3].getColumn()-1);
+		restoreRight = true;
+	}
 		
 	if(state[0] == true) {
 			
@@ -112,6 +129,21 @@ public class tBlock extends Piece {
 				state[3] = false;
 				
 				}
+	if(this.canMoveLeft(map) && restoreLeft) {
+		blocks[0].setColumn(blocks[0].getColumn()-1);
+		blocks[1].setColumn(blocks[1].getColumn()-1);
+		blocks[2].setColumn(blocks[2].getColumn()-1);
+		blocks[3].setColumn(blocks[3].getColumn()-1);
+		restoreLeft = false;
+	}
+	
+	if(this.canMoveRight(map) && restoreRight) {
+		blocks[0].setColumn(blocks[0].getColumn()+1);
+		blocks[1].setColumn(blocks[1].getColumn()+1);
+		blocks[2].setColumn(blocks[2].getColumn()+1);
+		blocks[3].setColumn(blocks[3].getColumn()+1);
+		restoreRight = false;
+	}
 	
 	}
 }
