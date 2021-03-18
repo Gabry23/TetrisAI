@@ -31,7 +31,7 @@ public class Game implements Runnable{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		eb = new EmptyBlock(0,0,0);
 		map = new Map(this);
-		gl = new Gameloop(this,map);
+		gl = new Gameloop(this,map); 
 		f.add(map);
 		f.setVisible(true);		
 		
@@ -43,20 +43,22 @@ public class Game implements Runnable{
 	public void checkDeleteCondition() {
 		if(!gl.getCurrPiece().isMoving()) {
 		boolean full;
-		int rows = 0;
-		for(int i=map.matrix.length-1; i>=0; i--) {
+		
+		for(int i=map.getMatrix().length-1; i>=0; i--) {
 			 full = true;
-			for(int j=0; j<map.matrix[i].length; j++) {
+			for(int j=0; j<map.getMatrix()[i].length; j++) {
 			
-				if(map.getMatrix()[i][j].getValue() == 0) {	
+				if(map.getSuppMatrix()[i][j].getValue() == 0) {	
 					full = false;
 				}
 			}
 			if(full) {
-				for(int k=0; k<map.matrix[i].length; k++) {
-					map.getMatrix()[i][k].setValue(0);		
+				for(int k=0; k<map.getMatrix()[i].length; k++) {
+					eb.setRow(i);
+					eb.setColumn(k);
+					map.getSuppMatrix()[i][k]=eb;		
 				}
-				lowMatrix(i);	
+				lowMatrix(i-1); 
 			}
 		}
 		}
@@ -65,16 +67,20 @@ public class Game implements Runnable{
 
 
 	private void lowMatrix(int index) {
-		for(int i=index-1 ; i>=0; i--) {
-			for(int j=0; j<map.matrix[i].length; j++) {	
-				if(map.getMatrix()[i][j].getValue() != 0) {
-					int value = map.getMatrix()[i][j].getValue();
-					map.getMatrix()[i][j].setValue(0); 
-					map.getMatrix()[i][j].setRow(map.getMatrix()[i][j].getRow()+1);
-					map.getMatrix()[i+1][j].setValue(value);
-				}
-			}	
+		if(index!=0) {
+		for(int i=index;i>=0;i--){
+			for(int j=0; j<map.getMatrix()[i].length; j++) {	
+					Cell temp;
+					temp = map.getSuppMatrix()[i][j];
+					temp.setRow(map.getSuppMatrix()[i][j].getRow()+1);
+					eb.setRow(i);
+					eb.setColumn(j);
+					map.getSuppMatrix()[i][j]=eb; 
+					map.getSuppMatrix()[i+1][j]=temp;
 			}
+		}
+		checkDeleteCondition();
+		}
 	}
 
 

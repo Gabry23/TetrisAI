@@ -24,7 +24,7 @@ public class Piece {
 	public Piece() {
 		blocks = new Cell[4];
 		state = new boolean[4];
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<4; i++) { 
 			blocks[i] = new Cell();
 			state[i] = false;
 		}

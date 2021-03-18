@@ -18,7 +18,7 @@ public class Gameloop implements Runnable{
 	private int fps;
 	
 	public Gameloop(Game game,Map map) {
-		this.game = game;
+		this.game = game; 
 		
 		this.map = map;
 		
@@ -50,6 +50,7 @@ public class Gameloop implements Runnable{
 		while(true) {
 			
 			if(!currPiece.isMoving()) {
+				game.checkDeleteCondition();
 				pieces.add(game.createPiece());
 				currPiece = pieces.get(pieces.size()-1);
 				map.getController().updatePiece(currPiece);
@@ -85,13 +86,17 @@ public class Gameloop implements Runnable{
 										
 							else{
 								game.sleepTime(400);
-								if(( game.checkScrollCondition(map, currPiece)))
+								
+								if((game.checkScrollCondition(map, currPiece)))
 									continue;
+								
 								currPiece.setMoving(false);
+								
 								for(int k=0; k<4; k++) {
 									currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);	
 								}
-							
+								
+								
 							}
 			
 						}
@@ -102,7 +107,7 @@ public class Gameloop implements Runnable{
 				}
 				
 				
-				game.checkDeleteCondition();
+				
 				game.sleepTime(fps);	
 		}
 	}
