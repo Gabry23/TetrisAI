@@ -7,18 +7,20 @@ import it.unical.mat.embasp.languages.IllegalAnnotationException;
 import it.unical.mat.embasp.languages.ObjectNotValidException;
 import it.unical.mat.embasp.languages.asp.ASPInputProgram;
 import it.unical.mat.embasp.languages.asp.ASPMapper;
+import it.unical.mat.embasp.languages.asp.AnswerSet;
 import it.unical.mat.embasp.languages.asp.AnswerSets;
 import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
 import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
 public class ASPSolver {
 	
+	private static ASPSolver asp = null;
 	private static String encodingResource="encodings/tetris";
     private static Handler handler;
-    private InputProgram facts;
-    private InputProgram variableFacts;
+    private InputProgram currMatrix;
+    private InputProgram variablecurrMatrix;
 
-public ASPSolver() {
+private ASPSolver() {
 	
 	if(System.getProperty("os.name").equals("Mac OS X")) {
         handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.mac_7"));
@@ -40,25 +42,28 @@ public ASPSolver() {
         ASPMapper.getInstance().registerClass(Cell.class);
         ASPMapper.getInstance().registerClass(Piece.class);
         ASPMapper.getInstance().registerClass(iBlock.class);
+        ASPMapper.getInstance().registerClass(iBlockBean.class);
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
     }
-    facts= new ASPInputProgram();
+    
+    currMatrix= new ASPInputProgram();
+    variablecurrMatrix = new ASPInputProgram();
     
     for(int i=0; i<20; i++) {
     	for(int j=0; j<10; j++) {
     try {
-		facts.addObjectInput(new Cell(i, j, 0));
+		currMatrix.addObjectInput(new Cell(i, j, 0));
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     }
     }
-    handler.addProgram(facts);
+    handler.addProgram(currMatrix);
     
-    System.out.println(facts.getPrograms());
+    System.out.println(currMatrix.getPrograms());
     
     InputProgram encoding= new ASPInputProgram();
     encoding.addFilesPath(encodingResource);
@@ -67,20 +72,132 @@ public ASPSolver() {
 }
 
 
-public void addPiece(Piece piece) {
+public void addPiece(Piece currPiece) {
 	
-	System.out.println(piece.getPiece()[0].getRow());
+	int X1 = currPiece.getPiece()[0].getRow();
+    int X2 = currPiece.getPiece()[1].getRow();
+    int X3 = currPiece.getPiece()[2].getRow();
+    int X4 = currPiece.getPiece()[3].getRow();
+    int Y1 = currPiece.getPiece()[0].getColumn();
+    int Y2 = currPiece.getPiece()[1].getColumn();
+    int Y3 = currPiece.getPiece()[2].getColumn();
+    int Y4 = currPiece.getPiece()[3].getColumn();
+
+	 if(currPiece instanceof iBlock) {
+	    	int v = ((iBlock) currPiece).getValue();
+			iBlockBean ibb = new iBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			try {
+				variablecurrMatrix.addObjectInput(ibb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }	 
+	    
+	    else if(currPiece instanceof jBlock) {
+	    	int v = ((jBlock) currPiece).getValue();
+			jBlockBean jbb = new jBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(jbb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	   
+	    else if(currPiece instanceof lBlock) {
+	    	int v = ((lBlock) currPiece).getValue();
+			lBlockBean lbb = new lBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(lbb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	   
+	    
+	    else if(currPiece instanceof oBlock) {
+	    	int v = ((oBlock) currPiece).getValue();
+			oBlockBean obb = new oBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(obb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	   
+	    
+	    else if(currPiece instanceof sBlock) {
+	    	int v = ((sBlock) currPiece).getValue();
+			sBlockBean sbb = new sBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(sbb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	   
+	    
+	    else if(currPiece instanceof tBlock) {
+	    	int v = ((tBlock) currPiece).getValue();
+			tBlockBean tbb = new tBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(tbb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	   
+	    
+	    else if(currPiece instanceof zBlock) {
+	    	int v = ((zBlock) currPiece).getValue();
+			zBlockBean zbb = new zBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+
+			try {
+				variablecurrMatrix.addObjectInput(zbb);
+			 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+
 	
-	try {
-		variableFacts.addObjectInput(piece);
-	    handler.addProgram(variableFacts);
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-    System.out.println(facts.getPrograms());
+	
+
+
+	   handler.addProgram(variablecurrMatrix);
+    System.out.println(variablecurrMatrix.getPrograms());
+    handler.removeProgram(variablecurrMatrix);
+    variablecurrMatrix.clearAll();
+    variablecurrMatrix.clearPrograms();
+
+    
+
 }
 
+
+public static ASPSolver getInstance() {
+	if(asp == null) {
+		asp = new ASPSolver();
+	}
+	return asp;
+}
 /*public Cell getNextMove() {
 	Output o = handler.startSync();
 	AnswerSets answersets = (AnswerSets) o;
@@ -91,6 +208,55 @@ public void addPiece(Piece piece) {
 	
 	
 }*/
+
+
+public void updateAspCells(Map map) {
+	 currMatrix.clearAll();
+
+	for(int i=0; i<20; i++) {
+		for(int j=0; j<10; j++) {
+		 int value = map.getMatrix()[i][j].getValue();
+		 try {
+			currMatrix.addObjectInput(new Cell(i,j,value));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+
+		   
+	}
+	
+	handler.addProgram(currMatrix);
+	
+	Output output = handler.startSync();
+	AnswerSets answers = (AnswerSets) output;
+	
+	for(AnswerSet a: answers.getAnswersets()){
+		System.out.println(a.toString());
+		}
+	//System.out.println(answers.getOutput());
+	
+	
+	for(AnswerSet a:answers.getAnswersets()){
+
+		/*try {
+			for(Object obj: a.getAtoms()){
+				//Scartiamo tutto ciò che non è un oggetto della classe Cell
+				//if(!(obj instanceof Cell)) continue;
+				//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
+				//nella matrice rappresentante la griglia del Sudoku
+				//Cell cell = (Cell) obj;					
+				System.out.println(obj.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} */
+	}
+	//   System.out.println(currMatrix.getPrograms());
+}
+
+
 }
 
 

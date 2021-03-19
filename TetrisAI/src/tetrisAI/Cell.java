@@ -12,7 +12,7 @@ public class Cell {
 	private int column;
 	@Param(2)
 	private int value;
-	@Param(3)
+	
 	private int id;
 	
 	

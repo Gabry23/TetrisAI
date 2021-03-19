@@ -14,6 +14,8 @@ public class oBlock extends Piece {
 	@Param(1)
 	private int id = 4;
 	
+	private int value = 4;
+	
 	public oBlock() {
 		
 		super();
@@ -45,6 +47,15 @@ public class oBlock extends Piece {
 	public Cell[] getPiece() {
 		return blocks;
 		
+	}
+	
+	
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	public void Rotate() {

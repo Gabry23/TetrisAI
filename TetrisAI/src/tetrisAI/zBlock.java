@@ -14,6 +14,8 @@ public class zBlock extends Piece {
 	@Param(1)
 	private int id = 7;
 	
+	private int value = 7;
+	
 	public zBlock() {
 		
 		super();
@@ -46,6 +48,15 @@ public class zBlock extends Piece {
 	public Cell[] getPiece() {
 		return blocks;
 		
+	}
+	
+	
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	public void Rotate(Map map) {
