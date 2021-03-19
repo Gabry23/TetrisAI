@@ -69,17 +69,10 @@ public ASPSolver() {
 
 public void addPiece(Piece piece) {
 	
-	int X1 = ((iBlock) piece).getX1();
-	int X2 = ((iBlock) piece).getX2();
-	int X3 = ((iBlock) piece).getX3();
-	int X4 = ((iBlock) piece).getX4();
+	System.out.println(piece.getPiece()[0].getRow());
 	
-	int Y1 = ((iBlock) piece).getY1();
-	int Y2 = ((iBlock) piece).getY2();
-	int Y3 = ((iBlock) piece).getY3();
-	int Y4 = ((iBlock) piece).getY4();
 	try {
-		variableFacts.addObjectInput(new iBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1));
+		variableFacts.addObjectInput(piece);
 	    handler.addProgram(variableFacts);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block

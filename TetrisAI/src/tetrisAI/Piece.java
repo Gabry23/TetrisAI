@@ -5,7 +5,7 @@ import java.awt.Image;
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("piece")
+@Id("Piece")
 public class Piece {
 
 

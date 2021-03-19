@@ -2,6 +2,7 @@ package tetrisAI;
 
 import javax.swing.JFrame;
 
+
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
@@ -18,9 +19,7 @@ import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 public class MainClass {
 
 	public MainClass() {}
-	
 
-	
 	private static String encodingResource="encodings/sudoku";
 	
 	private static Handler handler;
@@ -29,20 +28,17 @@ public class MainClass {
 		//Visualizziamo la griglia iniziale del Sudoku
 		Game g = new Game();
 		
-		
-		
-		/*
 		//Creazione dell'oggetto handler che si occuper� di gestire l'invocazione 
 		//del sistema ASP da utilizzare
 		
 		//Se si esegue la demo su Windows 64bit scommentare la seguente istruzione:
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
+		//handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
 
 		//Se si esegue la demo su Linux 64bit scommentare la seguente istruzione:
 		//handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 		
 		//Se si esegue la demo su MacOS 64bit scommentare la seguente istruzione:
-		//handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
 		
 		//In alternativa, aggiungere nella cartella lib l'eseguibile di DLV2 
 		//appropriato in base al proprio sistema e sostituire a "nome_exe_dlv2" 
@@ -53,11 +49,13 @@ public class MainClass {
 		//classe Cell che viene prima registrata all'ASPMapper
 		try {
 			ASPMapper.getInstance().registerClass(Cell.class);
+			ASPMapper.getInstance().registerClass(Piece.class);
+			ASPMapper.getInstance().registerClass(iBlock.class);
 		} catch (ObjectNotValidException | IllegalAnnotationException e1) {
 			e1.printStackTrace();
 		}
 		InputProgram facts= new ASPInputProgram();
-		for(int i=0;i<N;i++){
+		/*for(int i=0;i<N;i++){
 			for(int j=0;j<N;j++){
 				if(sudokuMatrix[i][j]!=0){
 					try {
@@ -67,7 +65,7 @@ public class MainClass {
 					}
 				}	
 			}			
-		}
+		}*/
 		
 		//Aggiungiamo all'handler i fatti 
 		handler.addProgram(facts);
@@ -85,7 +83,7 @@ public class MainClass {
 		//Analizziamo l'answer set che in quest caso � unico e che rappresenta la soluzione
 		//del Sudoku e aggiorniamo la matrice
 		AnswerSets answersets = (AnswerSets) o;
-		for(AnswerSet a:answersets.getAnswersets()){
+		/*for(AnswerSet a:answersets.getAnswersets()){
 			try {
 				for(Object obj:a.getAtoms()){
 					//Scartiamo tutto ci� che non � un oggetto della classe Cell
@@ -99,9 +97,9 @@ public class MainClass {
 				e.printStackTrace();
 			} 
 			
-		}
+		}*/
 		//Visualizziamo la griglia cos� ottenuta
-		*/
+		
 		
 		//In alternativa l'handler pu� invocare DLV2 in modo ASINCRONO.
 		//Scommentare la seguente linea e commentare le linee 89-110

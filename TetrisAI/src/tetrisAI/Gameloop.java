@@ -17,6 +17,8 @@ public class Gameloop implements Runnable{
 	
 	private int fps;
 	
+	private ASPSolver asp;
+	
 	public Gameloop(Game game,Map map) {
 		this.game = game; 
 		
@@ -29,6 +31,8 @@ public class Gameloop implements Runnable{
 		currPiece = pieces.get(pieces.size()-1);
 		
 		fps=600;
+		
+		asp = new ASPSolver();
 		
 		t=new Thread(this);
 		t.start();
@@ -107,7 +111,7 @@ public class Gameloop implements Runnable{
 				}
 				
 				
-				
+				asp.addPiece(currPiece);
 				game.sleepTime(fps);	
 		}
 	}
