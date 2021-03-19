@@ -14,6 +14,8 @@ public class tBlock extends Piece {
 	@Param(1)
 	private int id = 6;
 	
+	private int value = 6;
+	
 	public tBlock() {
 		
 		super();
@@ -45,6 +47,15 @@ public class tBlock extends Piece {
 	public Cell[] getPiece() {
 		return blocks;
 		
+	}
+	
+	
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	public void Rotate(Map map) {

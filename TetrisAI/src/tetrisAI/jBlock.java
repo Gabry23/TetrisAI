@@ -15,9 +15,11 @@ public class jBlock extends Piece {
 
 	@Param(1)
 	private int id = 2;
+	
+	private int value = 2;
 
 	
-	
+
 	public jBlock() {
 		
 		super();
@@ -52,6 +54,16 @@ public class jBlock extends Piece {
 		return blocks;
 		
 	}
+	
+	
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
 	
 	public void Rotate(Map map) {
 		
@@ -153,4 +165,5 @@ public class jBlock extends Piece {
 		}
 		
 	}
+
 }

@@ -14,23 +14,23 @@ public class iBlock extends Piece {
 	
 	private int id = 1;
 	
-	@Param(1)
+	@Param(0)
 	private int X1;
-	@Param(2)
+	@Param(1)
 	private int Y1;
-	@Param(3)
+	@Param(2)
 	private int X2;
-	@Param(4)
+	@Param(3)
 	private int Y2;
-	@Param(5)
+	@Param(4)
 	private int X3;
-	@Param(6)
+	@Param(5)
 	private int Y3;
-	@Param(7)
+	@Param(6)
 	private int X4;
-	@Param(8)
+	@Param(7)
 	private int Y4;
-	@Param(9)
+	@Param(8)
 	private int value = 1;
 	
 	
@@ -77,7 +77,8 @@ public class iBlock extends Piece {
 		
 	}
 	
-	public iBlock(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int i) {
+	public iBlock(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int v) {
+		super();
 		X1 = x1;
 		X2 = x2;
 		X3 = x3;
@@ -86,6 +87,7 @@ public class iBlock extends Piece {
 		Y2 = y2;
 		Y3 = y3;
 		Y4 = y4;
+		value = v;
 	}
 
 	public int getX1() {

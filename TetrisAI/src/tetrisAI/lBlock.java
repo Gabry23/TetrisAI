@@ -14,6 +14,8 @@ public class lBlock extends Piece {
 	@Param(1)
 	private int id = 3;
 	
+	private int value = 3;
+	
 	public lBlock() {
 		
 		super();
@@ -46,6 +48,15 @@ public class lBlock extends Piece {
 	public Cell[] getPiece() {
 		return blocks;
 		
+	}
+	
+	
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 	
 	public void Rotate(Map map) {

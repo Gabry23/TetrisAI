@@ -16,6 +16,7 @@ public class Game implements Runnable{
 	private Random random;
 	private PieceController pc;
 	private Gameloop gl;
+	private ASPSolver asp; 
 	private Thread t;
 	
 	public Game() {
@@ -34,7 +35,7 @@ public class Game implements Runnable{
 		gl = new Gameloop(this,map); 
 		f.add(map);
 		f.setVisible(true);		
-		
+//		asp = new ASPSolver();
 		t=new Thread(this);
 		t.start();
 		
@@ -223,6 +224,8 @@ public class Game implements Runnable{
 				addPiece(gl.getCurrPiece());
 			}
 			map.update();
+		//	ASPSolver.getInstance().addPiece(piece);
+	//		asp.addPiece(piece);
 			sleepTime(10);
 		}
 	}

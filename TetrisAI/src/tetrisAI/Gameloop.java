@@ -17,10 +17,16 @@ public class Gameloop implements Runnable{
 	
 	private int fps;
 	
+	private ASPSolver asp;
+	
+	private MyCallback mcb;
+	
 	public Gameloop(Game game,Map map) {
 		this.game = game; 
 		
 		this.map = map;
+		
+		
 		
 		pieces = new ArrayList<Piece>();
 		
@@ -28,7 +34,10 @@ public class Gameloop implements Runnable{
 		
 		currPiece = pieces.get(pieces.size()-1);
 		
-		fps=600;
+		
+	//	asp.addPiece(currPiece);
+		
+		fps=400;
 		
 		t=new Thread(this);
 		t.start();
@@ -72,8 +81,10 @@ public class Gameloop implements Runnable{
 								if(updatable) {	
 									for(int k=0; k<4; k++) {
 										currPiece.getPiece()[k].setRow(currPiece.getPiece()[k].getRow()+1);
-										map.getSuppMatrix()[currPiece.getPiece()[k].getRow()][currPiece.getPiece()[k].getColumn()] = currPiece.getPiece()[k]; 
+										map.getSuppMatrix()[currPiece.getPiece()[k].getRow()][currPiece.getPiece()[k].getColumn()] = currPiece.getPiece()[k];
+										
 									}
+						
 								updatable=false;
 							
 								}
@@ -96,6 +107,9 @@ public class Gameloop implements Runnable{
 									currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);	
 								}
 								
+								ASPSolver.getInstance().updateAspCells(map);
+				
+								
 								
 							}
 			
@@ -106,11 +120,14 @@ public class Gameloop implements Runnable{
 				
 				}
 				
-				
-				
+				 ASPSolver.getInstance().addPiece(currPiece);
+
+		
 				game.sleepTime(fps);	
+				
 		}
 	}
+
 
 	public void setSleepTime(int i) {
 		fps = i;

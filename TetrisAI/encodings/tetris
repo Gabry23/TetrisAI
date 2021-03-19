@@ -1,0 +1,1 @@
+regole(X,Y,Z):-cell(X,Y,Z).
