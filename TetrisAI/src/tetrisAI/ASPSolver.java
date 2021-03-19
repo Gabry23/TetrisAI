@@ -23,7 +23,7 @@ public class ASPSolver {
 private ASPSolver() {
 	
 	if(System.getProperty("os.name").equals("Mac OS X")) {
-        handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.mac_7"));
+        handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
         //handler.addOption(new OptionDescriptor("-n 0"));
         System.out.println("Sistema operativo Mac OS X");
     }
@@ -41,8 +41,13 @@ private ASPSolver() {
     try {
         ASPMapper.getInstance().registerClass(Cell.class);
         ASPMapper.getInstance().registerClass(Piece.class);
-        ASPMapper.getInstance().registerClass(iBlock.class);
         ASPMapper.getInstance().registerClass(iBlockBean.class);
+        ASPMapper.getInstance().registerClass(jBlockBean.class);
+        ASPMapper.getInstance().registerClass(lBlockBean.class);
+        ASPMapper.getInstance().registerClass(oBlockBean.class);
+        ASPMapper.getInstance().registerClass(sBlockBean.class);
+        ASPMapper.getInstance().registerClass(zBlockBean.class);
+        ASPMapper.getInstance().registerClass(tBlockBean.class);
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
@@ -242,7 +247,7 @@ public void updateAspCells(Map map) {
 
 		/*try {
 			for(Object obj: a.getAtoms()){
-				//Scartiamo tutto ciò che non è un oggetto della classe Cell
+				//Scartiamo tutto ciï¿½ che non ï¿½ un oggetto della classe Cell
 				//if(!(obj instanceof Cell)) continue;
 				//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
 				//nella matrice rappresentante la griglia del Sudoku
