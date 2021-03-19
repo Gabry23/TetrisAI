@@ -23,7 +23,7 @@ public class ASPSolver {
 private ASPSolver() {
 	
 	if(System.getProperty("os.name").equals("Mac OS X")) {
-        handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
         //handler.addOption(new OptionDescriptor("-n 0"));
         System.out.println("Sistema operativo Mac OS X");
     }

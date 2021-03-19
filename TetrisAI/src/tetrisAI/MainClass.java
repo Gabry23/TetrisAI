@@ -20,7 +20,7 @@ public class MainClass {
 
 	public MainClass() {}
 
-	private static String encodingResource="encodings/sudoku";
+	private static String encodingResource="encodings/tetris";
 	
 	private static Handler handler;
 	
@@ -38,7 +38,7 @@ public class MainClass {
 		//handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 		
 		//Se si esegue la demo su MacOS 64bit scommentare la seguente istruzione:
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
+		//handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
 		
 		//In alternativa, aggiungere nella cartella lib l'eseguibile di DLV2 
 		//appropriato in base al proprio sistema e sostituire a "nome_exe_dlv2" 
@@ -47,7 +47,7 @@ public class MainClass {
 		
 		//Specifichiamo i fatti in input, in questo caso tramite oggetti della 
 		//classe Cell che viene prima registrata all'ASPMapper
-		try {
+		/*try {
 			ASPMapper.getInstance().registerClass(Cell.class);
 			ASPMapper.getInstance().registerClass(Piece.class);
 			ASPMapper.getInstance().registerClass(iBlock.class);
@@ -68,21 +68,21 @@ public class MainClass {
 		}*/
 		
 		//Aggiungiamo all'handler i fatti 
-		handler.addProgram(facts);
+		//handler.addProgram(facts);
 		
 		//Specifichiamo il programma logico tramite file
-		InputProgram encoding= new ASPInputProgram();
-		encoding.addFilesPath(encodingResource);
+		//InputProgram encoding= new ASPInputProgram();
+		//encoding.addFilesPath(encodingResource);
 		
 		//Aggiungiamo all'handler il programma logico
-		handler.addProgram(encoding);
+		//handler.addProgram(encoding);
 		
 		//L'handler invoca DLV2 in modo SINCRONO dando come input il programma logico e i fatti
-		Output o =  handler.startSync();
+		//Output o =  handler.startSync();
 		
 		//Analizziamo l'answer set che in quest caso � unico e che rappresenta la soluzione
 		//del Sudoku e aggiorniamo la matrice
-		AnswerSets answersets = (AnswerSets) o;
+		//AnswerSets answersets = (AnswerSets) o;
 		/*for(AnswerSet a:answersets.getAnswersets()){
 			try {
 				for(Object obj:a.getAtoms()){
