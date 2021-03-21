@@ -43,6 +43,12 @@ private ASPSolver() {
         ASPMapper.getInstance().registerClass(Piece.class);
         ASPMapper.getInstance().registerClass(iBlock.class);
         ASPMapper.getInstance().registerClass(iBlockBean.class);
+        ASPMapper.getInstance().registerClass(jBlockBean.class);
+        ASPMapper.getInstance().registerClass(lBlockBean.class);
+        ASPMapper.getInstance().registerClass(oBlockBean.class);
+        ASPMapper.getInstance().registerClass(sBlockBean.class);
+        ASPMapper.getInstance().registerClass(tBlockBean.class);
+        ASPMapper.getInstance().registerClass(zBlockBean.class);
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
@@ -182,11 +188,18 @@ public void addPiece(Piece currPiece) {
 
 
 	   handler.addProgram(variablecurrMatrix);
-    System.out.println(variablecurrMatrix.getPrograms());
-    handler.removeProgram(variablecurrMatrix);
-    variablecurrMatrix.clearAll();
-    variablecurrMatrix.clearPrograms();
+   
+    
+	
+	Output output = handler.startSync();
+	AnswerSets answers = (AnswerSets) output;
+	
 
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
+		System.out.println(a.toString());
+		}
+	
+	
     
 
 }
@@ -232,7 +245,8 @@ public void updateAspCells(Map map) {
 	Output output = handler.startSync();
 	AnswerSets answers = (AnswerSets) output;
 	
-	for(AnswerSet a: answers.getAnswersets()){
+
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
 		System.out.println(a.toString());
 		}
 	//System.out.println(answers.getOutput());
@@ -255,6 +269,10 @@ public void updateAspCells(Map map) {
 	}
 	//   System.out.println(currMatrix.getPrograms());
 }
+
+
+
+public static void getAnswerset() {}
 
 
 }

@@ -1,1 +1,42 @@
-regole(X,Y,Z):-cell(X,Y,Z).
+limiteDestro(10).
+limiteSinistro(0).
+riga(0..19).
+colonna(0..9).
+
+#show inserisciIBlock/8.
+
+adiacenti(X1,Y1,X2,Y2,X3,Y3,X4,Y4):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2+1, Y4=Y3+1, X1 = X2, X2 = X3, X3 = X4.
+
+inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4) | nonInserirlo(X1,Y1,X2,Y2,X3,Y3,X4,Y4) :- adiacenti(X1,Y1,X2,Y2,X3,Y3,X4,Y4), iblockbean(_,_,_,_,_,_,_,_,_).
+
+
+:- #count{X1,Y1,X2,Y2,X3,Y3,X4,Y4 : inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4)} != 1.
+
+celleLibereRiga(X,N) :- riga(X), V=0,  #count{X,Y,V : cell(X,Y,V)} = N.
+
+
+ultimaRigaInseribile(R):-  #max{X,N: celleLibereRiga(X,N), N>=4} = R.
+
+
+
+pieceRow(X1):- inserisciIBlock(X1,_,_,_,_,_,_,_).
+pieceRow(X2):-inserisciIBlock(_,_,X2,_,_,_,_,_).
+pieceRow(X3):- inserisciIBlock(_,_,_,_,X3,_,_,_).
+pieceRow(X4):-inserisciIBlock(_,_,_,_,_,_,X4,_).
+pieceColumn(Y1):-inserisciIBlock(_,Y1,_,_,_,_,_,_).
+pieceColumn(Y2):-inserisciIBlock(_,_,_,Y2,_,_,_,_).
+pieceColumn(Y3):-inserisciIBlock(_,_,_,_,_,Y3,_,_).
+pieceColumn(Y4):-inserisciIBlock(_,_,_,_,_,_,_,Y4).
+
+
+minColPiece(MinC):-  #min{Y:  pieceColumn(Y)} = MinC.
+maxColPiece(MaxC):-  #max{Y:  pieceColumn(Y)} = MaxC.
+
+minRowPiece(MinR):-  #min{Y:  pieceRow(Y)} = MinR.
+maxRowPiece(MaxR):-  #max{Y:  pieceRow(Y)} = MaxR.
+
+
+
+
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4). [Y1@1]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4), X1!=R, ultimaRigaInseribile(R). [19-X1@2]

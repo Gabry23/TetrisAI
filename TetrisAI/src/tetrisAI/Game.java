@@ -136,7 +136,7 @@ public class Game implements Runnable{
 		
 		random = new Random();
 		int min = 1; // numero minimo
-		int max = 7; // numero massimo
+		int max = 1; // numero massimo
 		int c = ((max-min) + 1);
 		int rand = random.nextInt(c) + min;
 		piece = null;
