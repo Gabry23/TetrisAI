@@ -15,7 +15,7 @@ public class Game implements Runnable{
 	private Piece piece;
 	private Random random;
 	private PieceController pc;
-	private Gameloop gl;
+	private static Gameloop gl;
 	private ASPSolver asp; 
 	private Thread t;
 	
@@ -240,7 +240,7 @@ public class Game implements Runnable{
 	}
 
 
-	public Gameloop getLoop() {
+	public static Gameloop getLoop() {
 		return gl;
 	}
 	

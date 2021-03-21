@@ -12,6 +12,8 @@ import it.unical.mat.embasp.languages.Param;
 @Id("map")
 public class Map extends JPanel {
 	
+	
+	
 	@Param(0)
 	static Cell[][] matrix;
 	

@@ -31,7 +31,7 @@ public class Gameloop implements Runnable{
 		pieces = new ArrayList<Piece>();
 		
 		pieces.add(game.createPiece());
-		ASPSolver.getAnswerset();
+		//ASPSolver.getAnswerset();
 		currPiece = pieces.get(pieces.size()-1);
 		
 		
@@ -120,7 +120,7 @@ public class Gameloop implements Runnable{
 				
 				}
 				
-				 ASPSolver.getInstance().addPiece(currPiece);
+				 ASPSolver.getInstance().addPiece(currPiece, map);
 
 		
 				game.sleepTime(fps);	

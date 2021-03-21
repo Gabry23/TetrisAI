@@ -3,7 +3,7 @@ limiteSinistro(0).
 riga(0..19).
 colonna(0..9).
 
-#show inserisciIBlock/8.
+%#show inserisciIBlock/8.
 
 adiacenti(X1,Y1,X2,Y2,X3,Y3,X4,Y4):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2+1, Y4=Y3+1, X1 = X2, X2 = X3, X3 = X4.
 
