@@ -1,5 +1,6 @@
 package tetrisAI;
 
+import tetrisAI.InserisciBlocks.*;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
@@ -18,12 +19,15 @@ public class ASPSolver {
 	private static String encodingResource="encodings/tetris";
     private static Handler handler;
     private InputProgram currMatrix;
-    private InputProgram variablecurrMatrix;
-
+    private static InputProgram variablecurrMatrix;
+    private Map map;
+    
+    
 private ASPSolver() {
 	
+	
 	if(System.getProperty("os.name").equals("Mac OS X")) {
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2-mac"));
+        handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.mac_7"));
         //handler.addOption(new OptionDescriptor("-n 0"));
         System.out.println("Sistema operativo Mac OS X");
     }
@@ -41,13 +45,15 @@ private ASPSolver() {
     try {
         ASPMapper.getInstance().registerClass(Cell.class);
         ASPMapper.getInstance().registerClass(Piece.class);
+        ASPMapper.getInstance().registerClass(iBlock.class);
         ASPMapper.getInstance().registerClass(iBlockBean.class);
         ASPMapper.getInstance().registerClass(jBlockBean.class);
         ASPMapper.getInstance().registerClass(lBlockBean.class);
         ASPMapper.getInstance().registerClass(oBlockBean.class);
         ASPMapper.getInstance().registerClass(sBlockBean.class);
-        ASPMapper.getInstance().registerClass(zBlockBean.class);
         ASPMapper.getInstance().registerClass(tBlockBean.class);
+        ASPMapper.getInstance().registerClass(zBlockBean.class);
+        ASPMapper.getInstance().registerClass(inserisciiBlock.class);
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
@@ -77,7 +83,7 @@ private ASPSolver() {
 }
 
 
-public void addPiece(Piece currPiece) {
+public void addPiece(Piece currPiece, Map map) {
 	
 	int X1 = currPiece.getPiece()[0].getRow();
     int X2 = currPiece.getPiece()[1].getRow();
@@ -187,13 +193,84 @@ public void addPiece(Piece currPiece) {
 
 
 	   handler.addProgram(variablecurrMatrix);
-    System.out.println(variablecurrMatrix.getPrograms());
-    handler.removeProgram(variablecurrMatrix);
-    variablecurrMatrix.clearAll();
-    variablecurrMatrix.clearPrograms();
+   
+    
+	
+	Output output = handler.startSync();
+	AnswerSets answers = (AnswerSets) output;
+	
 
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
+		try {
+		for(Object obj: a.getAtoms()){
+
+			if(!(obj instanceof inserisciiBlock)) continue;
+			//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
+			//nella matrice rappresentante la griglia del Sudoku
+			inserisciiBlock position = (inserisciiBlock) obj;					
+			move(currPiece,position,map);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} 
+		}
+	
+	
     
 
+}
+
+/*public static void getAnswerSet() {
+
+	   handler.addProgram(variablecurrMatrix);
+
+ 
+	
+	Output output = handler.startSync();
+	AnswerSets answers = (AnswerSets) output;
+	
+
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
+		try {
+		for(Object obj: a.getAtoms()){
+
+			if(!(obj instanceof inserisciiBlock)) continue;
+			//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
+			//nella matrice rappresentante la griglia del Sudoku
+			inserisciiBlock position = (inserisciiBlock) obj;					
+			move(currPiece,position);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} 
+		}
+}
+*/
+
+private void move(Piece currPiece, inserisciiBlock position, Map map) {
+	
+	if(currPiece.isMoving) {
+	if(currPiece.canMoveLeft(map) && (position.getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (position.getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	
 }
 
 
@@ -237,7 +314,8 @@ public void updateAspCells(Map map) {
 	Output output = handler.startSync();
 	AnswerSets answers = (AnswerSets) output;
 	
-	for(AnswerSet a: answers.getAnswersets()){
+
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
 		System.out.println(a.toString());
 		}
 	//System.out.println(answers.getOutput());
@@ -262,6 +340,11 @@ public void updateAspCells(Map map) {
 }
 
 
+
+
+
+
 }
+
 
 

@@ -15,7 +15,7 @@ public class Game implements Runnable{
 	private Piece piece;
 	private Random random;
 	private PieceController pc;
-	private Gameloop gl;
+	private static Gameloop gl;
 	private ASPSolver asp; 
 	private Thread t;
 	
@@ -136,7 +136,7 @@ public class Game implements Runnable{
 		
 		random = new Random();
 		int min = 1; // numero minimo
-		int max = 7; // numero massimo
+		int max = 1; // numero massimo
 		int c = ((max-min) + 1);
 		int rand = random.nextInt(c) + min;
 		piece = null;
@@ -240,7 +240,7 @@ public class Game implements Runnable{
 	}
 
 
-	public Gameloop getLoop() {
+	public static Gameloop getLoop() {
 		return gl;
 	}
 	
