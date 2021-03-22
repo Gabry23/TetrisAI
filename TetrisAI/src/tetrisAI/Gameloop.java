@@ -117,13 +117,6 @@ public class Gameloop implements Runnable{
 					
 				
 				}
-<<<<<<< HEAD
-
-				 ASPSolver.getInstance().addPiece(currPiece);
-=======
-				
-				 ASPSolver.getInstance().addPiece(currPiece, map);
->>>>>>> refs/remotes/origin/Gago
 
 		
 
