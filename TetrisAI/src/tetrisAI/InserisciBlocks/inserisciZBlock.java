@@ -1,10 +1,10 @@
-package tetrisAI;
+package tetrisAI.InserisciBlocks;
 
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("lblockbean")
-public class lBlockBean {
+@Id("inserisciZBlock")
+public class inserisciZBlock extends inserisciPezzo {
 	@Param(0)
 	private int X1;
 	@Param(1)
@@ -22,9 +22,19 @@ public class lBlockBean {
 	@Param(7)
 	private int Y4;
 	@Param(8)
-	private int value;
+	private int V;
 	
-	public lBlockBean(int X1,int X2,int X3,int X4,int Y1,int Y2,int Y3,int Y4, int v) {
+	
+	public int getV() {
+		return V;
+	}
+
+	public void setV(int v) {
+		V = v;
+	}
+
+	
+	public inserisciZBlock(int X1,int X2,int X3,int X4,int Y1,int Y2,int Y3,int Y4, int V) {
 		this.X1 = X1;
 		this.X2 = X2;
 		this.X3 = X3;
@@ -33,11 +43,12 @@ public class lBlockBean {
 		this.Y2 = Y2;
 		this.Y3 = Y3;
 		this.Y4 = Y4;
-	    value=0;
+		this.V = V;
+
 		
 	}
 	
-	public lBlockBean() {
+	public inserisciZBlock() {
 		
 	}
 
@@ -122,14 +133,5 @@ public class lBlockBean {
 	}
 
 
-	public int getValue() {
-		return value;
-	}
-
-
-	public void setValue(int value) {
-		this.value = value;
-	}
-	
 	
 }

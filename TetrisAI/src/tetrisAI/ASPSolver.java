@@ -53,7 +53,13 @@ private ASPSolver() {
         ASPMapper.getInstance().registerClass(sBlockBean.class);
         ASPMapper.getInstance().registerClass(tBlockBean.class);
         ASPMapper.getInstance().registerClass(zBlockBean.class);
-        ASPMapper.getInstance().registerClass(inserisciiBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciIBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciJBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciLBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciOBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciSBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciTBlock.class);
+        ASPMapper.getInstance().registerClass(inserisciZBlock.class);
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
@@ -73,8 +79,9 @@ private ASPSolver() {
     }
     }
     handler.addProgram(currMatrix);
-    
     System.out.println(currMatrix.getPrograms());
+    
+    
     
     InputProgram encoding= new ASPInputProgram();
     encoding.addFilesPath(encodingResource);
@@ -84,7 +91,7 @@ private ASPSolver() {
 
 
 public void addPiece(Piece currPiece, Map map) {
-	
+	variablecurrMatrix.clearAll();
 	int X1 = currPiece.getPiece()[0].getRow();
     int X2 = currPiece.getPiece()[1].getRow();
     int X3 = currPiece.getPiece()[2].getRow();
@@ -96,10 +103,9 @@ public void addPiece(Piece currPiece, Map map) {
 
 	 if(currPiece instanceof iBlock) {
 	    	int v = ((iBlock) currPiece).getValue();
-			iBlockBean ibb = new iBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			iBlockBean ibb = new iBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 			try {
 				variablecurrMatrix.addObjectInput(ibb);
-			 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,7 +114,7 @@ public void addPiece(Piece currPiece, Map map) {
 	    
 	    else if(currPiece instanceof jBlock) {
 	    	int v = ((jBlock) currPiece).getValue();
-			jBlockBean jbb = new jBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			jBlockBean jbb = new jBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(jbb);
@@ -121,7 +127,7 @@ public void addPiece(Piece currPiece, Map map) {
 	   
 	    else if(currPiece instanceof lBlock) {
 	    	int v = ((lBlock) currPiece).getValue();
-			lBlockBean lbb = new lBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			lBlockBean lbb = new lBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(lbb);
@@ -135,7 +141,7 @@ public void addPiece(Piece currPiece, Map map) {
 	    
 	    else if(currPiece instanceof oBlock) {
 	    	int v = ((oBlock) currPiece).getValue();
-			oBlockBean obb = new oBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			oBlockBean obb = new oBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(obb);
@@ -149,7 +155,7 @@ public void addPiece(Piece currPiece, Map map) {
 	    
 	    else if(currPiece instanceof sBlock) {
 	    	int v = ((sBlock) currPiece).getValue();
-			sBlockBean sbb = new sBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			sBlockBean sbb = new sBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(sbb);
@@ -163,7 +169,7 @@ public void addPiece(Piece currPiece, Map map) {
 	    
 	    else if(currPiece instanceof tBlock) {
 	    	int v = ((tBlock) currPiece).getValue();
-			tBlockBean tbb = new tBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			tBlockBean tbb = new tBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(tbb);
@@ -177,7 +183,7 @@ public void addPiece(Piece currPiece, Map map) {
 	    
 	    else if(currPiece instanceof zBlock) {
 	    	int v = ((zBlock) currPiece).getValue();
-			zBlockBean zbb = new zBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,v);
+			zBlockBean zbb = new zBlockBean(X1,X2,X3,X4,Y1,Y2,Y3,Y4,0);
 
 			try {
 				variablecurrMatrix.addObjectInput(zbb);
@@ -195,30 +201,76 @@ public void addPiece(Piece currPiece, Map map) {
 	   handler.addProgram(variablecurrMatrix);
    
     
-	
-	Output output = handler.startSync();
-	AnswerSets answers = (AnswerSets) output;
-	
 
-	for(AnswerSet a: answers.getOptimalAnswerSets()){
-		try {
-		for(Object obj: a.getAtoms()){
+	updateMovement(currPiece,map);
 
-			if(!(obj instanceof inserisciiBlock)) continue;
-			//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
-			//nella matrice rappresentante la griglia del Sudoku
-			inserisciiBlock position = (inserisciiBlock) obj;					
-			move(currPiece,position,map);
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	} 
-		}
+	
 	
 	
     
 
 }
+
+public static void updateMovement(Piece currPiece,Map map) {
+
+	Output output = handler.startSync();
+
+	AnswerSets answers = (AnswerSets) output;
+
+	for(AnswerSet a: answers.getOptimalAnswerSets()){
+		System.out.println(a);
+		try {
+		for(Object obj: a.getAtoms()){
+			
+			if(obj instanceof inserisciIBlock) {
+			inserisciPezzo position = (inserisciIBlock) obj;					
+			move(currPiece,position,map);
+			}
+			
+			else if(obj instanceof inserisciJBlock) {
+				inserisciPezzo position = (inserisciJBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else if(obj instanceof inserisciLBlock) {
+				inserisciPezzo position = (inserisciLBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else if(obj instanceof inserisciOBlock) {
+				inserisciPezzo position = (inserisciOBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else if(obj instanceof inserisciSBlock) {
+				inserisciPezzo position = (inserisciSBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else if(obj instanceof inserisciTBlock) {
+				inserisciPezzo position = (inserisciTBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else if(obj instanceof inserisciZBlock) {
+				inserisciPezzo position = (inserisciZBlock) obj;					
+				move(currPiece,position,map);
+				}
+			
+			else {
+				continue;
+			}
+			
+			
+			
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} 
+		}
+		
+}
+
 
 /*public static void getAnswerSet() {
 
@@ -247,16 +299,27 @@ public void addPiece(Piece currPiece, Map map) {
 }
 */
 
-private void move(Piece currPiece, inserisciiBlock position, Map map) {
+public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 	
+	
+	if(position instanceof inserisciIBlock) {
 	if(currPiece.isMoving) {
-	if(currPiece.canMoveLeft(map) && (position.getY1()<currPiece.getPiece()[0].getColumn())) {
+			
+			if(currPiece.getPiece()[0].getRow()>1) {
+			if(currPiece.getState()[((inserisciIBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+				System.out.println("L'HO GIRATO!");
+				currPiece.setState(true, ((inserisciIBlock) position).getV());
+			}
+			}
+		
+	if(currPiece.canMoveLeft(map) && (((inserisciIBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
 		for(int i=0; i<4; i++) {
 			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
 		}
 		}
 	
-	else if(currPiece.canMoveRight(map) && (position.getY1() > currPiece.getPiece()[0].getColumn())) {
+	else if(currPiece.canMoveRight(map) && (((inserisciIBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
 		
 		for(int i=0; i<4; i++) {
 			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
@@ -270,8 +333,203 @@ private void move(Piece currPiece, inserisciiBlock position, Map map) {
 	else {
 		return;
 	}
+	}
+	
+	
+	
+	if(position instanceof inserisciJBlock) {
+	if(currPiece.isMoving) {
+		if(currPiece.getPiece()[0].getRow()>1) {
+			while(currPiece.getState()[((inserisciJBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+	
+			}
+			currPiece.setState(true, ((inserisciJBlock) position).getV());
+
+			}
+	if(currPiece.canMoveLeft(map) && (((inserisciJBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciJBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
+	
+	
+	if(position instanceof inserisciLBlock) {
+	if(currPiece.isMoving) {
+		if(currPiece.getPiece()[0].getRow()>1) {
+			while(currPiece.getState()[((inserisciLBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+	
+			}
+			currPiece.setState(true, ((inserisciLBlock) position).getV());
+
+			}
+	if(currPiece.canMoveLeft(map) && (((inserisciLBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciLBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
+	
+	if(position instanceof inserisciOBlock) {
+	if(currPiece.isMoving) {
+	if(currPiece.canMoveLeft(map) && (((inserisciOBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciOBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
+	
+	if(position instanceof inserisciSBlock) {
+	if(currPiece.isMoving) {
+		if(currPiece.getPiece()[0].getRow()>1) {
+			while(currPiece.getState()[((inserisciSBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+	
+			}
+			currPiece.setState(true, ((inserisciSBlock) position).getV());
+
+			}
+	if(currPiece.canMoveLeft(map) && (((inserisciSBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciSBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
+	
+	if(position instanceof inserisciTBlock) {
+	if(currPiece.isMoving) {
+		if(currPiece.getPiece()[0].getRow()>1) {
+			while(currPiece.getState()[((inserisciTBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+	
+			}
+			currPiece.setState(true, ((inserisciTBlock) position).getV());
+
+			}
+	if(currPiece.canMoveLeft(map) && (((inserisciTBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciTBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
+	
+	if(position instanceof inserisciZBlock) {
+	if(currPiece.isMoving) {
+		if(currPiece.getPiece()[0].getRow()>1) {
+			while(currPiece.getState()[((inserisciZBlock) position).getV()] == false) {
+				currPiece.Rotate(map);
+	
+			}
+			currPiece.setState(true, ((inserisciZBlock) position).getV());
+
+			}
+	if(currPiece.canMoveLeft(map) && (((inserisciZBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+		}
+		}
+	
+	else if(currPiece.canMoveRight(map) && (((inserisciZBlock) position).getY1() > currPiece.getPiece()[0].getColumn())) {
+		
+		for(int i=0; i<4; i++) {
+			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+		}
+		}
+	else {
+		Game.getLoop().setSleepTime(100);
+
+	}
+	}
+	else {
+		return;
+	}
+	}
+	
 	
 }
+
 
 
 public static ASPSolver getInstance() {
@@ -309,34 +567,7 @@ public void updateAspCells(Map map) {
 		   
 	}
 	
-	handler.addProgram(currMatrix);
 	
-	Output output = handler.startSync();
-	AnswerSets answers = (AnswerSets) output;
-	
-
-	for(AnswerSet a: answers.getOptimalAnswerSets()){
-		System.out.println(a.toString());
-		}
-	//System.out.println(answers.getOutput());
-	
-	
-	for(AnswerSet a:answers.getAnswersets()){
-
-		/*try {
-			for(Object obj: a.getAtoms()){
-				//Scartiamo tutto ciò che non è un oggetto della classe Cell
-				//if(!(obj instanceof Cell)) continue;
-				//Convertiamo in un oggetto della classe Cell e impostiamo il valore di ogni cella 
-				//nella matrice rappresentante la griglia del Sudoku
-				//Cell cell = (Cell) obj;					
-				System.out.println(obj.toString());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} */
-	}
-	//   System.out.println(currMatrix.getPrograms());
 }
 
 

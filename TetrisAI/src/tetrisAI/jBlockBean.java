@@ -22,7 +22,7 @@ public class jBlockBean {
 	@Param(7)
 	private int Y4;
 	@Param(8)
-	private int value = 1;
+	private int value;
 	
 	public jBlockBean(int X1,int X2,int X3,int X4,int Y1,int Y2,int Y3,int Y4, int v) {
 		this.X1 = X1;
@@ -33,7 +33,7 @@ public class jBlockBean {
 		this.Y2 = Y2;
 		this.Y3 = Y3;
 		this.Y4 = Y4;
-	    value = v;
+	    value = 0;
 		
 	}
 	

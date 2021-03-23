@@ -52,8 +52,8 @@ public class Gameloop implements Runnable{
 		
 		boolean updatable;
 		
-		
 		map.addPiece(currPiece);
+		ASPSolver.getInstance().addPiece(currPiece, map);
 		map.getController().updatePiece(currPiece);
 		
 		while(true) {
@@ -61,7 +61,10 @@ public class Gameloop implements Runnable{
 			if(!currPiece.isMoving()) {
 				game.checkDeleteCondition();
 				pieces.add(game.createPiece());
+
 				currPiece = pieces.get(pieces.size()-1);
+				ASPSolver.getInstance().addPiece(currPiece, map);
+
 				map.getController().updatePiece(currPiece);
 			}
 				
@@ -120,9 +123,7 @@ public class Gameloop implements Runnable{
 				
 				}
 				
-				 ASPSolver.getInstance().addPiece(currPiece, map);
-
-		
+				ASPSolver.getInstance().updateMovement(currPiece, map);
 				game.sleepTime(fps);	
 				
 		}
