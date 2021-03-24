@@ -1,6 +1,7 @@
 package tetrisAI;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class Gameloop implements Runnable{
@@ -18,6 +19,8 @@ public class Gameloop implements Runnable{
 	private int fps;
 	
 	private MyCallback mcb;
+	
+	
 
 	public Gameloop(Game game,Map map) {
 		this.game = game; 
@@ -36,6 +39,8 @@ public class Gameloop implements Runnable{
 	//	asp.addPiece(currPiece);
 		
 		fps=400;
+		
+		
 		
 		t=new Thread(this);
 		t.start();
@@ -104,11 +109,7 @@ public class Gameloop implements Runnable{
 								for(int k=0; k<4; k++) {
 									currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);	
 								}
-								
-								ASPSolver.getInstance().updateAspCells(map);
-				
-								
-								
+												
 							}
 			
 						}
@@ -117,6 +118,10 @@ public class Gameloop implements Runnable{
 					
 				
 				}
+
+				
+				 ASPSolver.getInstance().addPiece(currPiece, map);
+
 
 		
 

@@ -1,10 +1,12 @@
 package tetrisAI;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
+
 
 public class Game implements Runnable{
 
@@ -36,6 +38,7 @@ public class Game implements Runnable{
 		f.add(map);
 		f.setVisible(true);		
 //		asp = new ASPSolver();
+		
 		t=new Thread(this);
 		t.start();
 		
@@ -226,7 +229,7 @@ public class Game implements Runnable{
 			map.update();
 		//	ASPSolver.getInstance().addPiece(piece);
 	//		asp.addPiece(piece);
-			sleepTime(10);
+			sleepTime(1);
 		}
 	}
 	
