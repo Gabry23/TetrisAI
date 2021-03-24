@@ -3,8 +3,8 @@ package tetrisAI.InserisciBlocks;
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("inserisciIBlock")
-public class inserisciiBlock {
+@Id("inserisciJBlock")
+public class inserisciJBlock extends inserisciPezzo {
 	@Param(0)
 	private int X1;
 	@Param(1)
@@ -21,9 +21,21 @@ public class inserisciiBlock {
 	private int X4;
 	@Param(7)
 	private int Y4;
+	@Param(8)
+	private int V;
 	
 	
-	public inserisciiBlock(int X1,int X2,int X3,int X4,int Y1,int Y2,int Y3,int Y4) {
+	public int getV() {
+		return V;
+	}
+
+	public void setV(int v) {
+		V = v;
+	}
+
+	
+	
+	public inserisciJBlock(int X1,int X2,int X3,int X4,int Y1,int Y2,int Y3,int Y4,int V) {
 		this.X1 = X1;
 		this.X2 = X2;
 		this.X3 = X3;
@@ -32,11 +44,12 @@ public class inserisciiBlock {
 		this.Y2 = Y2;
 		this.Y3 = Y3;
 		this.Y4 = Y4;
+		this.V=V;
 
 		
 	}
 	
-	public inserisciiBlock() {
+	public inserisciJBlock() {
 		
 	}
 

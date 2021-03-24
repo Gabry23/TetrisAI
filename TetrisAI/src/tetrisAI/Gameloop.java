@@ -1,7 +1,6 @@
 package tetrisAI;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class Gameloop implements Runnable{
@@ -18,10 +17,10 @@ public class Gameloop implements Runnable{
 	
 	private int fps;
 	
+	private ASPSolver asp;
+	
 	private MyCallback mcb;
 	
-	
-
 	public Gameloop(Game game,Map map) {
 		this.game = game; 
 		
@@ -40,8 +39,6 @@ public class Gameloop implements Runnable{
 		
 		fps=400;
 		
-		
-		
 		t=new Thread(this);
 		t.start();
 	}
@@ -55,8 +52,8 @@ public class Gameloop implements Runnable{
 		
 		boolean updatable;
 		
-		
 		map.addPiece(currPiece);
+		ASPSolver.getInstance().addPiece(currPiece, map);
 		map.getController().updatePiece(currPiece);
 		
 		while(true) {
@@ -64,7 +61,10 @@ public class Gameloop implements Runnable{
 			if(!currPiece.isMoving()) {
 				game.checkDeleteCondition();
 				pieces.add(game.createPiece());
+
 				currPiece = pieces.get(pieces.size()-1);
+				ASPSolver.getInstance().addPiece(currPiece, map);
+
 				map.getController().updatePiece(currPiece);
 			}
 				
@@ -109,7 +109,11 @@ public class Gameloop implements Runnable{
 								for(int k=0; k<4; k++) {
 									currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);	
 								}
-												
+								
+								ASPSolver.getInstance().updateAspCells(map);
+				
+								
+								
 							}
 			
 						}
@@ -118,13 +122,8 @@ public class Gameloop implements Runnable{
 					
 				
 				}
-
 				
-				 ASPSolver.getInstance().addPiece(currPiece, map);
-
-
-		
-
+				ASPSolver.getInstance().updateMovement(currPiece, map);
 				game.sleepTime(fps);	
 				
 		}
