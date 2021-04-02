@@ -66,6 +66,7 @@ public class Gameloop implements Runnable{
 				ASPSolver.getInstance().addPiece(currPiece, map);
 
 				map.getController().updatePiece(currPiece);
+				ASPSolver.getInstance().updateAspCells(map);
 			}
 				
 			updatable=true;
@@ -110,7 +111,7 @@ public class Gameloop implements Runnable{
 									currPiece.getPiece()[k].setValue(currPiece.getPiece()[k].getValue()*-1);	
 								}
 								
-								ASPSolver.getInstance().updateAspCells(map);
+					
 				
 								
 								
@@ -124,6 +125,7 @@ public class Gameloop implements Runnable{
 				}
 				
 				ASPSolver.getInstance().updateMovement(currPiece, map);
+			
 				game.sleepTime(fps);	
 				
 		}

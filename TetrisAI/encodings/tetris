@@ -1,5 +1,80 @@
 limiteDestro(10).
 
+
+bordo(-1,-1).
+bordo(-1,0).
+bordo(-1,1).
+bordo(-1,2).
+bordo(-1,3).
+bordo(-1,4).
+bordo(-1,5).
+bordo(-1,6).
+bordo(-1,7).
+bordo(-1,8).
+bordo(-1,9).
+bordo(-1,10).
+
+
+bordo(-1,-1).
+bordo(0,-1).
+bordo(1,-1).
+bordo(2,-1).
+bordo(3,-1).
+bordo(4,-1).
+bordo(5,-1).
+bordo(6,-1).
+bordo(7,-1).
+bordo(8,-1).
+bordo(9,-1).
+bordo(10,-1).
+bordo(11,-1).
+bordo(12,-1).
+bordo(13,-1).
+bordo(14,-1).
+bordo(15,-1).
+bordo(16,-1).
+bordo(17,-1).
+bordo(18,-1).
+bordo(19,-1).
+bordo(20,-1).
+
+bordo(20,-1).
+bordo(20,0).
+bordo(20,1).
+bordo(20,2).
+bordo(20,3).
+bordo(20,4).
+bordo(20,5).
+bordo(20,6).
+bordo(20,7).
+bordo(20,8).
+bordo(20,9).
+bordo(20,10).
+
+bordo(-1,10).
+bordo(0,10).
+bordo(1,10).
+bordo(2,10).
+bordo(3,10).
+bordo(4,10).
+bordo(5,10).
+bordo(6,10).
+bordo(7,10).
+bordo(8,10).
+bordo(9,10).
+bordo(10,10).
+bordo(11,10).
+bordo(12,10).
+bordo(13,10).
+bordo(14,10).
+bordo(15,10).
+bordo(16,10).
+bordo(17,10).
+bordo(18,10).
+bordo(19,10).
+bordo(20,10).
+
+
 stato(0).
 stato(1).
 
@@ -10,19 +85,112 @@ riga(0..19).
 colonna(0..9).
 
 
-
 celleLibereRiga(X,N) :- riga(X), V=0,  #count{X,Y,V : cell(X,Y,V)} = N.
 ultimaRigaInseribile(R):-  #max{X,N: celleLibereRiga(X,N), N>=0} = R.
 RigheUgualiAR(N):- ultimaRigaInseribile(R), #count{R: pieceRow(R)} = N.   
 
-#show cell/3.
-#show inserisciIBlock/9.
-#show inserisciJBlock/9.
-#show inserisciLBlock/9.
-#show inserisciOBlock/9.
-#show inserisciSBlock/9.
-#show inserisciTBlock/9.
-#show inserisciZBlock/9.
+
+jblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+sblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+iblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+lblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+oblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+tblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+zblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V):-  inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
+
+
+cell(X,Y,1):-zblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-zblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-zblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-zblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-iblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-iblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-iblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-iblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-lblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-lblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-lblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-lblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-jblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-jblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-jblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-jblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-sblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-sblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-sblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-sblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-tblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-tblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-tblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-tblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+cell(X,Y,1):-oblockbean(X,Y,_,_,_,_,_,_,_).
+cell(X,Y,1):-oblockbean(_,_,X,Y,_,_,_,_,_).
+cell(X,Y,1):-oblockbean(_,_,_,_,X,Y,_,_,_).
+cell(X,Y,1):-oblockbean(_,_,_,_,_,_,X,Y,_).
+
+
+
+valoreCellaAltoSX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X>0, Y>0, X1 = X-1, Y1 = Y-1.
+valoreCellaAltoSX(X,Y,1):- cell(0,0,_), bordo(X-1,Y-1).
+
+valoreCellaAlto(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X>0, X1 = X-1, Y1 = Y.
+valoreCellaAlto(X,Y,1):- cell(0,Y,_), bordo(X-1,Y).
+
+
+valoreCellaAltoDX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X>0, Y<9, X1 = X-1, Y1 = Y+1.
+valoreCellaAltoDX(X,Y,1):- cell(0,9,_), bordo(X-1,Y+1).
+
+
+valoreCellaSX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), Y>0, X1 = X, Y1 = Y-1.
+valoreCellaSX(X,Y,1):- cell(X,0,_), bordo(X,Y-1).
+
+
+valoreCellaDX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), Y<9, X1 = X, Y1 = Y+1.
+valoreCellaDX(X,Y,1):- cell(X,9,_), bordo(X,Y+1).
+
+
+valoreCellaBassoSX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X<19, Y>0, X1= X+1, Y1 = Y-1.
+valoreCellaBassoSX(X,Y,1):- cell(19,0,_), bordo(X+1,Y-1).
+
+
+valoreCellaBasso(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X<19, X1 = X+1, Y1 = Y.
+valoreCellaBasso(X,Y,1):- cell(19,Y,_), bordo(X+1,Y).
+
+
+valoreCellaBassoDX(X,Y,V1):- cell(X,Y,V), cell(X1,Y1,V1), X<19,Y<9, X1 = X+1, Y1 = Y+1.
+valoreCellaBassoDX(X,Y,1):- cell(19,9,_), bordo(X+1,Y+1).
+
+
+SommaValoriIntorno(X,Y,N):- cell(X,Y,_), X>17,
+valoreCellaAltoSX(X,Y,V1),
+valoreCellaAlto(X,Y,V2),
+valoreCellaAltoDX(X,Y,V3),
+valoreCellaSX(X,Y,V4),
+valoreCellaDX(X,Y,V5),
+valoreCellaBassoSX(X,Y,V6),
+valoreCellaBasso(X,Y,V7),
+valoreCellaBassoDX(X,Y,V8), N = V1+V2+V3+V4+V5+V6+V7+V8.
+
+
+
 
 
 
@@ -37,7 +205,8 @@ adiacenti(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0
 inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) | nonInserireIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) :- adiacenti(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
 
 
-iblockbean(X1+2,Y1+2,X2+1,Y2+1,X3,Y3,X4-1,Y4-1,1):-iblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0), X1<=1.
+
+iblockbean(X1+2,Y1+2,X2+1,Y2+1,X3,Y3,X4-1,Y4-1,1):-iblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0).
 
 
 :- iblockbean(_,_,_,_,_,_,_,_,_),   #count{X1,Y1,X2,Y2,X3,Y3,X4,Y4,V : inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) } != 1.
@@ -52,6 +221,11 @@ pieceColumn(Y2):-inserisciIBlock(_,_,_,Y2,_,_,_,_,V).
 pieceColumn(Y3):-inserisciIBlock(_,_,_,_,_,Y3,_,_,V).
 pieceColumn(Y4):-inserisciIBlock(_,_,_,_,_,_,_,Y4,V).
 
+pieceRowColumn(X1,Y1):-inserisciIBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciIBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciIBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciIBlock(_,_,_,_,_,_,X4,Y4,V).
+
 
 minColPiece(MinC):-  #min{Y:  pieceColumn(Y)} = MinC.
 maxColPiece(MaxC):-  #max{Y:  pieceColumn(Y)} = MaxC.
@@ -61,21 +235,34 @@ maxRowPiece(MaxR):-  #max{Y:  pieceRow(Y)} = MaxR.
 
 
 
-
-
-
-
-
-
 :~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V). [Y1@1]
 
 :~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
+
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciIBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
 
 
 %GESTIONE JBLOCK
 
 
-adiacentiJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2+1, Y4=Y3+1, X1 = X2+1, X2 = X3, X3 = X4, jblockbean(_,_,_,_,_,_,_,_,0).
+adiacentiJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y1 = Y2, Y3=Y2+1, Y4=Y3+1, X2 = X1+1, X2 = X3, X3 = X4, jblockbean(_,_,_,_,_,_,_,_,0).
 adiacentiJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2, Y4=Y3, X1 = X2 , X3 = X2-1 , X4 = X3-1, jblockbean(_,_,_,_,_,_,_,_,1).
 adiacentiJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,2):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1, Y3=Y2-1, Y4=Y3-1, X2 = X1-1, X3 = X2, X4 = X3, jblockbean(_,_,_,_,_,_,_,_,2).
 adiacentiJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,3):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1-1, Y3=Y2, Y4=Y3, X1 = X2, X3 = X2+1, X4 = X3+1, jblockbean(_,_,_,_,_,_,_,_,3).
@@ -99,6 +286,10 @@ pieceColumn(Y1):-inserisciJBlock(_,Y1,_,_,_,_,_,_,_).
 pieceColumn(Y2):-inserisciJBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciJBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciJBlock(_,_,_,_,_,_,_,Y4,_).
+pieceRowColumn(X1,Y1):-inserisciJBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciJBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciJBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciJBlock(_,_,_,_,_,_,X4,Y4,V).
 
 
 
@@ -106,13 +297,32 @@ pieceColumn(Y4):-inserisciJBlock(_,_,_,_,_,_,_,Y4,_).
 
 :~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
 
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciJBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
 
 
 %GESTIONE LBLOCK
 
 
 
-adiacentiLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2+1, Y4=Y3+1, X1 = X2+1, X2 = X3, X3 = X4, lblockbean(_,_,_,_,_,_,_,_,0).
+adiacentiLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1, Y3=Y2-1, Y4=Y3-1, X2 = X1+1, X2 = X3, X3 = X4, lblockbean(_,_,_,_,_,_,_,_,0).
 adiacentiLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y2, Y4=Y3, X1 = X2 , X3 = X2+1 , X4 = X3+1, lblockbean(_,_,_,_,_,_,_,_,1).
 adiacentiLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,2):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1, Y3=Y2+1, Y4=Y3+1, X2 = X1-1, X3 = X2, X4 = X3, lblockbean(_,_,_,_,_,_,_,_,2).
 adiacentiLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,3):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1-1, Y3=Y2, Y4=Y3, X1 = X2, X3 = X2-1, X4 = X3-1, lblockbean(_,_,_,_,_,_,_,_,3).
@@ -136,12 +346,36 @@ pieceColumn(Y1):-inserisciLBlock(_,Y1,_,_,_,_,_,_,_).
 pieceColumn(Y2):-inserisciLBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciLBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciLBlock(_,_,_,_,_,_,_,Y4,_).
+pieceRowColumn(X1,Y1):-inserisciLBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciLBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciLBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciLBlock(_,_,_,_,_,_,X4,Y4,V).
 
 
 
 :~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V). [Y1@1]
 
 :~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
+
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciLBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
 
 
 
@@ -165,6 +399,10 @@ pieceColumn(Y1):-inserisciOBlock(_,Y1,_,_,_,_,_,_,_).
 pieceColumn(Y2):-inserisciOBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciOBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciOBlock(_,_,_,_,_,_,_,Y4,_).
+pieceRowColumn(X1,Y1):-inserisciOBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciOBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciOBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciOBlock(_,_,_,_,_,_,X4,Y4,V).
 
 
 
@@ -172,21 +410,41 @@ pieceColumn(Y4):-inserisciOBlock(_,_,_,_,_,_,_,Y4,_).
 
 :~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
 
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciOBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
+
 
 
 %GESTIONE SBLOCK
 
 
 adiacentiSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y1-1, Y4=Y3+1, X2 = X1, X3 = X2+1, X4 = X3, sblockbean(_,_,_,_,_,_,_,_,0).
-adiacentiSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1+1, Y3=Y1-1, Y4=Y1, X1 = X2, X3 = X2+1, X4 = X3, sblockbean(_,_,_,_,_,_,_,_,1).
+adiacentiSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,1):- cell(X1,Y1,0), cell(X2,Y2,0),cell(X3,Y3,0),cell(X4,Y4,0), Y2=Y1, Y3=Y1+1, Y4=Y3, X2 = X1-1, X3 = X2+2, X4 = X3+1, sblockbean(_,_,_,_,_,_,_,_,1).
 
 inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) | nonInserireSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) :- adiacentiSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V).
 
 
-sblockbean(X1-1,Y1-1,X2,Y2+2,X3,Y3,X4-1,Y4+1,1):-sblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0), X1<=3.
+sblockbean(X1,Y1,X2-1,Y2-1,X3,Y3+2,X4-1,Y4+1,1):-sblockbean(X1,Y1,X2,Y2,X3,Y3,X4,Y4,0), X1<=5.
 
 :- sblockbean(_,_,_,_,_,_,_,_,_),  #count{X1,Y1,X2,Y2,X3,Y3,X4,Y4,V : inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) } != 1.
-
+ 
 
 
 pieceRow(X1):- inserisciSBlock(X1,_,_,_,_,_,_,_,_).
@@ -198,13 +456,36 @@ pieceColumn(Y2):-inserisciSBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciSBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciSBlock(_,_,_,_,_,_,_,Y4,_).
 
+pieceRowColumn(X1,Y1):-inserisciSBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciSBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciSBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciSBlock(_,_,_,_,_,_,X4,Y4,V).
+
 
 
 :~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V). [Y1@1]
 
 :~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
 
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
 
+
+
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciSBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
 
 
 
@@ -236,12 +517,36 @@ pieceColumn(Y1):-inserisciTBlock(_,Y1,_,_,_,_,_,_,_).
 pieceColumn(Y2):-inserisciTBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciTBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciTBlock(_,_,_,_,_,_,_,Y4,_).
+pieceRowColumn(X1,Y1):-inserisciTBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciTBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciTBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciTBlock(_,_,_,_,_,_,X4,Y4,V).
 
 
 
 :~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V). [Y1@1]
 
 :~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
+
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciTBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
+
 
 
 
@@ -263,6 +568,7 @@ zblockbean(X1+1,Y1+1,X2,Y2,X3-1,Y3+1,X4-2,Y4,1):-zblockbean(X1,Y1,X2,Y2,X3,Y3,X4
 :- zblockbean(_,_,_,_,_,_,_,_,_),  #count{X1,Y1,X2,Y2,X3,Y3,X4,Y4,V : inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V) } != 1.
 
 
+
 pieceRow(X1):- inserisciZBlock(X1,_,_,_,_,_,_,_,_).
 pieceRow(X2):-inserisciZBlock(_,_,X2,_,_,_,_,_,_).
 pieceRow(X3):- inserisciZBlock(_,_,_,_,X3,_,_,_,_).
@@ -271,12 +577,36 @@ pieceColumn(Y1):-inserisciZBlock(_,Y1,_,_,_,_,_,_,_).
 pieceColumn(Y2):-inserisciZBlock(_,_,_,Y2,_,_,_,_,_).
 pieceColumn(Y3):-inserisciZBlock(_,_,_,_,_,Y3,_,_,_).
 pieceColumn(Y4):-inserisciZBlock(_,_,_,_,_,_,_,Y4,_).
-
+pieceRowColumn(X1,Y1):-inserisciZBlock(X1,Y1,_,_,_,_,_,_,V).
+pieceRowColumn(X2,Y2):-inserisciZBlock(_,_,X2,Y2,_,_,_,_,V).
+pieceRowColumn(X3,Y3):-inserisciZBlock(_,_,_,_,X3,Y3,_,_,V).
+pieceRowColumn(X4,Y4):-inserisciZBlock(_,_,_,_,_,_,X4,Y4,V).
 
 
 :~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V). [Y1@1]
 
 :~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V), maxRowPiece(K), ultimaRigaInseribile(R), D = R-K. [R-K@2]
+
+:~ celleLibereRiga(R,N),ultimaRigaInseribile(R), #count{ Y : pieceRowColumn(R,Y)} = K. [N-K@3]
+
+
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1+1,Y1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2+1,Y2,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3+1,Y3,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4+1,Y4,N), N>=7. [1@4]
+
+
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1+1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2+1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3+1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4+1,N), N>=7. [1@4]
+
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X1,Y1-1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X2,Y2-1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X3,Y3-1,N), N>=7. [1@4]
+:~ inserisciZBlock(X1,Y1,X2,Y2,X3,Y3,X4,Y4,V),  SommaValoriIntorno(X4,Y4-1,N), N>=7. [1@4]
+
+
 
 
 

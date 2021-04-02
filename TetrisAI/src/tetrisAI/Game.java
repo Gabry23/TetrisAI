@@ -16,7 +16,7 @@ public class Game implements Runnable{
 	private Random random;
 	private PieceController pc;
 	private static Gameloop gl;
-	private ASPSolver asp; 
+	//private ASPSolver asp; 
 	private Thread t;
 	
 	public Game() {
@@ -133,7 +133,7 @@ public class Game implements Runnable{
 
 
 	public Piece createPiece() {
-		
+	
 		random = new Random();
 		int min = 1; // numero minimo
 		int max = 7; // numero massimo
