@@ -1,10 +1,14 @@
 package tetrisAI;
 
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.print.attribute.standard.Media;
 import javax.swing.JFrame;
 
 public class Game implements Runnable{
@@ -34,11 +38,14 @@ public class Game implements Runnable{
 		eb = new EmptyBlock(0,0,0);
 		map = new Map(this);
 		gl = new Gameloop(this,map); 
+
 		f.add(map);
 		f.setVisible(true);		
 //		asp = new ASPSolver();
+
 		t=new Thread(this);
 		t.start();
+		
 		
 	}	
 	
@@ -61,6 +68,7 @@ public class Game implements Runnable{
 					map.getSuppMatrix()[i][k]=eb;		
 				}
 				lowMatrix(i-1); 
+				map.setScore(map.getScore()+10);
 			}
 		}
 		}

@@ -1,8 +1,11 @@
 package tetrisAI;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -66,6 +69,8 @@ public class Map extends JPanel {
 	
 	private PieceController pc;
 	
+	private Integer score = 0;
+	
 	public Map(Game game) {
 	
 		try {
@@ -127,6 +132,7 @@ public class Map extends JPanel {
 		super.paintComponent(g);
 	
 		g.drawImage(wallpaper, 0 , 0, null);
+		
 		for(int i=0; i<matrix.length; i++) {
 			
 			for(int j=0; j<matrix[i].length; j++) {
@@ -197,10 +203,38 @@ public class Map extends JPanel {
         g.drawLine(150, 620, 450, 620);
         g.drawLine(450, 20, 450, 620);
         g.drawLine(150, 20, 150, 620);
-		
+        
+		g.setColor(Color.BLACK);
+        g.drawRect(500, 100, 250, 150);
+        g.fillRect(500, 100, 250, 150);
+        
+		g.setColor(Color.LIGHT_GRAY);
+        g.drawLine(500, 100, 500, 250);
+        g.drawLine(500, 100, 750, 100);
+        g.drawLine(750, 100, 750, 250);
+        g.drawLine(750, 250, 500, 250);
+        
+        g.setFont(new Font("Arial", Font.PLAIN, 40));  
+        g.drawString("SCORE:",550,150);
+        
+        String stringa = score.toString();
+        g.drawString(stringa,610,200);
+
+
+
 		
 	}
 	
+
+	public Integer getScore() {
+		return score;
+	}
+
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
 
 	public  Cell[][] getMatrix(){
 		return matrix;
