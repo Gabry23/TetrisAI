@@ -23,8 +23,10 @@ public class inserisciSBlock extends inserisciPezzo{
 	private int Y4;
 	@Param(8)
 	private int V;
+
 	
 	
+
 	public int getV() {
 		return V;
 	}

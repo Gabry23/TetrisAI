@@ -3,7 +3,9 @@ package tetrisAI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import it.unical.mat.embasp.languages.Id;
@@ -58,12 +60,23 @@ public class Map extends JPanel {
 	
 	private Image zbl;
 	
+	private Image wallpaper;
+	
 	private Piece currPiece;
 	
 	private PieceController pc;
 	
 	public Map(Game game) {
 	
+		try {
+			wallpaper = ImageIO.read(this.getClass().getResource("/resources/wallpaper.png"));
+			Image icon = wallpaper.getScaledInstance(800, 700, Image.SCALE_SMOOTH);
+			wallpaper = icon;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		matrix = new Cell [20][10];
 		suppMatrix = new Cell [20][10];
@@ -108,68 +121,69 @@ public class Map extends JPanel {
 		
 	}
 	
+
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
 	
+		g.drawImage(wallpaper, 0 , 0, null);
 		for(int i=0; i<matrix.length; i++) {
 			
 			for(int j=0; j<matrix[i].length; j++) {
 				
 				
 				if(matrix[i][j].getValue() == 0) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
-                  
                     g.setColor(Color.BLACK);
                     g.fillRect(x,y,30,30);
 				}
 				
 				
 				else if(matrix[i][j].getValue() == 1 || matrix[i][j].getValue() == -1 ) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                    
                     g.drawImage(ibl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 2 || matrix[i][j].getValue() == -2 ) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                     
                     g.drawImage(jbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 3 || matrix[i][j].getValue() == -3 ) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                   
                     g.drawImage(lbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 4 || matrix[i][j].getValue() == -4) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                     
                     g.drawImage(obl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 5|| matrix[i][j].getValue() == -5) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                     
                     g.drawImage(sbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 6 || matrix[i][j].getValue() == -6) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                     
                     g.drawImage(tbl, x, y, 30, 30, null);	
 				}
 				
 				else if(matrix[i][j].getValue() == 7 || matrix[i][j].getValue() == -7) {
-				    int x = 20 + j * 30;
+				    int x = 150 + j * 30;
                     int y = 20 + i * 30;
                     
                     g.drawImage(zbl, x, y, 30, 30, null);	
@@ -178,11 +192,12 @@ public class Map extends JPanel {
 			
 		}
 		
-		g.setColor(Color.BLACK);
-		g.drawLine(20, 20, 320, 20);
-		g.drawLine(20, 620, 320, 620);
-		g.drawLine(320, 20, 320, 620);
-		g.drawLine(20, 20, 20, 620);
+		g.setColor(Color.LIGHT_GRAY);
+        g.drawLine(150, 20, 450, 20);
+        g.drawLine(150, 620, 450, 620);
+        g.drawLine(450, 20, 450, 620);
+        g.drawLine(150, 20, 150, 620);
+		
 		
 	}
 	

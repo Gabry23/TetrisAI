@@ -14,7 +14,7 @@ public class PieceController implements KeyListener {
 		this.map = map;
 		this.game = game; 
 	}
-	
+
 	public void updatePiece(Piece currPiece) {
 		piece = currPiece;
 	}

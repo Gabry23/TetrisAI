@@ -79,7 +79,8 @@ public class sBlock extends Piece {
 		}
 		
 	if(state[0] == true) {
-			
+
+
 			blocks[1].setRow(blocks[1].getRow()-1);
 			blocks[1].setColumn(blocks[1].getColumn()-1);
 			

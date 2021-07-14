@@ -88,6 +88,7 @@ public class Piece {
 			if(adj.getValue()!=0 && adj.getId()!=this.id) 
 				 return false;
 		}
+	
 		return true;
 	}
 

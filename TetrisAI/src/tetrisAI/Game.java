@@ -1,5 +1,6 @@
 package tetrisAI;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +29,7 @@ public class Game implements Runnable{
 	public void startGame() {
 		f = new JFrame();
 		f.setTitle("TETRIS AI...SPETTACOLO............");
-		f.setSize(520, 750);
+		f.setSize(800, 700);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		eb = new EmptyBlock(0,0,0);
 		map = new Map(this);
@@ -109,7 +110,7 @@ public class Game implements Runnable{
 	}
 
 
-	public boolean checkScrollCondition(Map map, Piece currPiece) {
+	public static boolean checkScrollCondition(Map map, Piece currPiece) {
 
 		for(int i=0; i<4; i++) {
 			

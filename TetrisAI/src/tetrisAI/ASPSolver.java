@@ -20,7 +20,9 @@ public class ASPSolver {
     private static Handler handler;
     private InputProgram currMatrix;
     private static InputProgram variablecurrMatrix;
-    private Map map;
+    private static Map map;
+	private static inserisciPezzo position;
+	private static int movement = 0;
     
     
 private ASPSolver() {
@@ -60,6 +62,8 @@ private ASPSolver() {
         ASPMapper.getInstance().registerClass(inserisciSBlock.class);
         ASPMapper.getInstance().registerClass(inserisciTBlock.class);
         ASPMapper.getInstance().registerClass(inserisciZBlock.class);
+        ASPMapper.getInstance().registerClass(movePiece.class);
+
       //  ASPMapper.getInstance().registerClass(Assegno.class);
     } catch (ObjectNotValidException | IllegalAnnotationException e1) {
         e1.printStackTrace();
@@ -199,10 +203,7 @@ public void addPiece(Piece currPiece, Map map) {
 
 
 	   handler.addProgram(variablecurrMatrix);
-   
-    
-
-	updateMovement(currPiece,map);
+       updateMovement(currPiece,map);
 
 	
 	
@@ -221,48 +222,61 @@ public static void updateMovement(Piece currPiece,Map map) {
 		System.out.println(a);
 		try {
 		for(Object obj: a.getAtoms()){
-			
+			movement = 0;
+			for(Object obj2: a.getAtoms()){
+			if(obj2 instanceof movePiece) {
+				movePiece m = (movePiece) obj2;
+				movement = m.getP();
+			}
+			}
 			if(obj instanceof inserisciIBlock) {
-			inserisciPezzo position = (inserisciIBlock) obj;					
-			move(currPiece,position,map);
+			position = (inserisciIBlock) obj;					
+			move(currPiece,position,map,movement);
+			System.out.println(((inserisciIBlock) position).getX1());
+			System.out.println(((inserisciIBlock) position).getY1());
+			System.out.println(((inserisciIBlock) position).getX2());
+			System.out.println(((inserisciIBlock) position).getY2());
+			System.out.println(((inserisciIBlock) position).getX3());
+			System.out.println(((inserisciIBlock) position).getY3());
+			System.out.println(((inserisciIBlock) position).getX4());
+			System.out.println(((inserisciIBlock) position).getY4());
 			}
 			
 			else if(obj instanceof inserisciJBlock) {
-				inserisciPezzo position = (inserisciJBlock) obj;					
-				move(currPiece,position,map);
+				position = (inserisciJBlock) obj;					
+				move(currPiece,position,map,movement);
 				}
 			
 			else if(obj instanceof inserisciLBlock) {
-				inserisciPezzo position = (inserisciLBlock) obj;					
-				move(currPiece,position,map);
+				 position = (inserisciLBlock) obj;					
+				move(currPiece,position,map,movement);
 				}
 			
 			else if(obj instanceof inserisciOBlock) {
-				inserisciPezzo position = (inserisciOBlock) obj;					
-				move(currPiece,position,map);
+				 position = (inserisciOBlock) obj;					
+				move(currPiece,position,map,movement);
 				}
 			
 			else if(obj instanceof inserisciSBlock) {
-				inserisciPezzo position = (inserisciSBlock) obj;					
-				move(currPiece,position,map);
+				 position = (inserisciSBlock) obj;					
+				move(currPiece,position,map,movement);
 				}
 			
 			else if(obj instanceof inserisciTBlock) {
-				inserisciPezzo position = (inserisciTBlock) obj;					
-				move(currPiece,position,map);
+				 position = (inserisciTBlock) obj;					
+				move(currPiece,position,map,movement);
 				}
 			
 			else if(obj instanceof inserisciZBlock) {
-				inserisciPezzo position = (inserisciZBlock) obj;					
-				move(currPiece,position,map);
+				position = (inserisciZBlock) obj;					
+				move(currPiece,position,map,movement);			
 				}
 			
 			else {
 				continue;
 			}
 			
-			
-			
+		
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -299,8 +313,25 @@ public static void updateMovement(Piece currPiece,Map map) {
 }
 */
 
-public static void move(Piece currPiece, inserisciPezzo position, Map map) {
+public static void move(Piece currPiece, inserisciPezzo position, Map map, int movement) {
 	
+
+	
+	if(!Game.checkScrollCondition(map, currPiece)){
+		if(movement == 2 && currPiece.canMoveRight(map)) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[i].getRow(),currPiece.getPiece()[i].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+			}
+		}
+		if(movement == 1 && currPiece.canMoveLeft(map)) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[i].getRow(),currPiece.getPiece()[i].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+			}
+		}
+		//fitPieces(map,currPiece);
+}
 	
 	if(position instanceof inserisciIBlock) {
 	if(currPiece.isMoving) {
@@ -326,10 +357,11 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+
 	else {
 		return;
 	}
@@ -360,10 +392,15 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+	
+	if(!Game.checkScrollCondition(map, currPiece)){
+		
+		//fitPieces(map,currPiece);
+}
 	else {
 		return;
 	}
@@ -394,9 +431,14 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
+	}
+	
+	if(!Game.checkScrollCondition(map, currPiece)){
+		
+	//	fitPieces(map,currPiece);
 	}
 	else {
 		return;
@@ -419,10 +461,12 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+
+	
 	else {
 		return;
 	}
@@ -430,6 +474,7 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 	
 	
 	if(position instanceof inserisciSBlock) {
+	
 	if(currPiece.isMoving) {
 		if(currPiece.getPiece()[0].getRow()>1) {
 			while(currPiece.getState()[((inserisciSBlock) position).getV()] == false) {
@@ -439,7 +484,8 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 			currPiece.setState(true, ((inserisciSBlock) position).getV());
 
 			}
-	if(currPiece.canMoveLeft(map) && (((inserisciSBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
+
+		if(currPiece.canMoveLeft(map) && (((inserisciSBlock) position).getY1()<currPiece.getPiece()[0].getColumn())) {
 		for(int i=0; i<4; i++) {
 			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
 		}
@@ -452,10 +498,16 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+	
+	if(!Game.checkScrollCondition(map, currPiece)){
+	
+	//		fitPieces(map,currPiece);
+	}
+	
 	else {
 		return;
 	}
@@ -485,14 +537,22 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 		}
 		}
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+	
+	if(Game.checkScrollCondition(map, currPiece)){
+		
+	//	fitPieces(map,currPiece);
+}
+	
 	else {
 		return;
 	}
 	}
+	
+	
 	
 	
 	if(position instanceof inserisciZBlock) {
@@ -517,11 +577,19 @@ public static void move(Piece currPiece, inserisciPezzo position, Map map) {
 			currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
 		}
 		}
+	
+
 	else {
-		Game.getLoop().setSleepTime(100);
+		Game.getLoop().setSleepTime(200);
 
 	}
 	}
+	
+	if(!Game.checkScrollCondition(map, currPiece)){
+		
+	//	fitPieces(map,currPiece);
+}
+	
 	else {
 		return;
 	}
@@ -570,6 +638,101 @@ public void updateAspCells(Map map) {
 	
 }
 
+public static void fitPieces(Map map, Piece currPiece) {
+	
+	if(currPiece.canMoveRight(map)) {
+	
+		//MOVIMENTO A DESTRA
+		if((map.getMatrix()[currPiece.getPiece()[0].getRow()][currPiece.getPiece()[0].getColumn()+1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[0].getRow()+1][currPiece.getPiece()[0].getColumn()+1].getValue() != 0) 
+				) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+			}
+		}
+		
+		else if((map.getMatrix()[currPiece.getPiece()[1].getRow()][currPiece.getPiece()[1].getColumn()+1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[1].getRow()+1][currPiece.getPiece()[1].getColumn()+1].getValue() != 0)
+				) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+			
+			
+				}
+				
+			}
+				
+	 else if((map.getMatrix()[currPiece.getPiece()[2].getRow()][currPiece.getPiece()[2].getColumn()+1].getValue() == 0)
+				&& (map.getMatrix()[currPiece.getPiece()[2].getRow()+1][currPiece.getPiece()[2].getColumn()+1].getValue() != 0) 
+				) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+			}
+		}
+		
+	 else if((map.getMatrix()[currPiece.getPiece()[3].getRow()][currPiece.getPiece()[3].getColumn()+1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[3].getRow()+1][currPiece.getPiece()[3].getColumn()+1].getValue() != 0)
+				) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()+1);
+			}
+		}
+		}
+		
+		//MOVIMENTO A SINISTRA
+	if(currPiece.canMoveLeft(map)) {
+	  if((map.getMatrix()[currPiece.getPiece()[0].getRow()][currPiece.getPiece()[0].getColumn()-1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[0].getRow()+1][currPiece.getPiece()[0].getColumn()-1].getValue() != 0) 
+			) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+			}
+		}
+		
+	  else if((map.getMatrix()[currPiece.getPiece()[1].getRow()][currPiece.getPiece()[1].getColumn()-1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[1].getRow()+1][currPiece.getPiece()[1].getColumn()-1].getValue() != 0) 
+		) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+			
+			
+				}
+				
+			}
+				
+	  else  if((map.getMatrix()[currPiece.getPiece()[2].getRow()][currPiece.getPiece()[2].getColumn()-1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[2].getRow()+1][currPiece.getPiece()[2].getColumn()-1].getValue() != 0) 
+				) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+			}
+		}
+		
+	  else if((map.getMatrix()[currPiece.getPiece()[3].getRow()][currPiece.getPiece()[3].getColumn()-1].getValue() == 0) 
+				&& (map.getMatrix()[currPiece.getPiece()[3].getRow()+1][currPiece.getPiece()[3].getColumn()-1].getValue() != 0)
+			) {
+			for(int i=0; i<4; i++) {
+				map.getSuppMatrix()[currPiece.getPiece()[i].getRow()][currPiece.getPiece()[i].getColumn()] = new EmptyBlock(currPiece.getPiece()[1].getRow(),currPiece.getPiece()[1].getColumn(),0);
+				currPiece.getPiece()[i].setColumn(currPiece.getPiece()[i].getColumn()-1);
+			}
+		}
+	}
+}
+
+
+public void updateMovement2(Piece currPiece, Map map) {
+	if(position != null)
+	move(currPiece,position,map,movement);	
+	
+	
+}
 
 
 

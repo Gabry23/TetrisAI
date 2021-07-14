@@ -37,7 +37,7 @@ public class Gameloop implements Runnable{
 		
 	//	asp.addPiece(currPiece);
 		
-		fps=400;
+		fps=100;
 		
 		t=new Thread(this);
 		t.start();
@@ -100,7 +100,7 @@ public class Gameloop implements Runnable{
 							}
 										
 							else{
-								game.sleepTime(400);
+								game.sleepTime(100);
 								
 								if((game.checkScrollCondition(map, currPiece)))
 									continue;
@@ -124,10 +124,12 @@ public class Gameloop implements Runnable{
 				
 				}
 				
-				ASPSolver.getInstance().updateMovement(currPiece, map);
+				//ASPSolver.getInstance().updateMovement(currPiece, map);
 			
+		
+				ASPSolver.getInstance().updateMovement2(currPiece, map);
+				ASPSolver.getInstance().updateAspCells(map);
 				game.sleepTime(fps);	
-				
 		}
 	}
 

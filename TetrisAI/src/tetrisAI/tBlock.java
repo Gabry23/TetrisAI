@@ -49,7 +49,7 @@ public class tBlock extends Piece {
 		
 	}
 	
-	
+
 	public int getValue() {
 		return value;
 	}

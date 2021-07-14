@@ -29,8 +29,6 @@ public class MainClass {
 		//Visualizziamo la griglia iniziale del Sudoku
 		Game g = new Game();
 		
-		
-		
 		/*
 		//Creazione dell'oggetto handler che si occuper� di gestire l'invocazione 
 		//del sistema ASP da utilizzare
