@@ -12,7 +12,7 @@ import tetrisAI.PlayerClasses.GamePlayer;
 import tetrisAI.PlayerClasses.MapPlayer;
 import tetrisAI.PlayerClasses.PiecePlayer;
 
-public class Gameloop implements Runnable{
+public class Gameloop {
 	
 	private static Gameloop gl;
 	
@@ -35,6 +35,8 @@ public class Gameloop implements Runnable{
 	
 	
 	private Thread t;
+	
+	private Thread t1;
 	
 	private int fps;
 	
@@ -72,8 +74,45 @@ public class Gameloop implements Runnable{
 		fps=200;
 		playerfps = fps;
 		
-		t= new Thread(this);
+		t= new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				map.addPiece(currPiece);
+				
+				while(!Gameoverai()) {
+					
+					game.gameConditions(pieces,true);
+					
+					ASPSolver.getInstance().updateMovement2(currPiece, map);
+					ASPSolver.getInstance().updateAspCells(map);
+					
+					game.sleepTime(fps);
+					
+				}
+			}
+			
+		});
+		
+		t1= new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				map2.addPiece(currPiecePlayer);
+				
+				while(!GameoverPlayer()) {
+					
+					player.gameConditions(piecesPlayer,true);
+					
+					player.sleepTime(playerfps);
+					
+				}
+			}
+			
+		});
+		
 		t.start();
+		t1.start();
 		
 	}
 	
@@ -91,40 +130,6 @@ public class Gameloop implements Runnable{
 		
 		return currPiecePlayer;
 	}
-	
-	
-	@Override
-	public void run() {
-		
-		map.addPiece(currPiece);
-		map2.addPiece(currPiecePlayer);
-		
-		
-		ASPSolver.getInstance().addPiece(currPiece, map,game);
-		
-		
-		while(!gameOver()) {
-			
-			game.gameConditions(pieces,true);
-			
-			ASPSolver.getInstance().updateMovement2(currPiece, map);
-			ASPSolver.getInstance().updateAspCells(map);
-			
-			game.sleepTime(fps);
-			
-			player.gameConditions(piecesPlayer,true);
-			
-			//player.sleepTime(fps);
-			
-
-			
-			
-		}
-		
-
-			
-			
-	}
 
 
 	public synchronized void setSleepTime(int i) {
@@ -136,12 +141,6 @@ public class Gameloop implements Runnable{
 			return gl;
 		return null;
 	}
-	
-	public boolean gameOver() {
-		if(gameoverai && gameoverplayer)
-			return true;
-		return false;
-	}
 
 	public void setGameoverPlayer(boolean b) {
 		gameoverplayer = b;
@@ -149,6 +148,14 @@ public class Gameloop implements Runnable{
 	
 	public void setGameoverai(boolean b) {
 		gameoverai = b;
+	}
+	
+	public boolean GameoverPlayer() {
+		return gameoverplayer;
+	}
+	
+	public boolean Gameoverai() {
+		return gameoverai;
 	}
 
 	public int getFPS() {

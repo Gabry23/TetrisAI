@@ -56,7 +56,7 @@ public class PieceController implements KeyListener {
 			break;	
 			
 		case KeyEvent.VK_DOWN:
-			Gameloop.getInstance().setSleepTime(50);
+			Gameloop.getInstance().setPlayerSleepTime(50);
 			break;		
 			
 		case KeyEvent.VK_UP:
@@ -73,7 +73,7 @@ public class PieceController implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_DOWN:
-			Gameloop.getInstance().setSleepTime(200);
+			Gameloop.getInstance().setPlayerSleepTime(200);
 			break;	
 		}
 	}
